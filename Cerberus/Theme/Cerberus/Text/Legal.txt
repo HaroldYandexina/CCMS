@@ -1,0 +1,9 @@
+<CENTER><BIG><B>This software is protected by copyright laws.</B></BIG></CENTER>
+<HR>
+<CENTER>This theme was created by Gary Christopher Johnson</CENTER><BR>
+&middot; Image Fills taken from DBZ Wallpaper by 'Unknown'.<BR>
+&middot; Administration and Member cPanel icons taken from <A HREF=\"https://www.LBaumann.com\">Laurent Baumann</A> ( Non-Commercial Use Only )<BR>
+&middot; This Theme was created using the GNU Image Manipulation Program, ULEAD PhotoImpact and Adobe PhotoShop on the Operating Systems: Arch-Linux, Gentoo-Linux and Microsoft Windows<BR>
+&middot; Theme Size: 1.03 MB (1,088,972 B) -- 1.19 MB (1,257,472 B).
+<HR>
+<CENTER>&copy; Tinke Software, Gary Christopher Johnson's Works, 2005 - 2023, All Rights Reserved.</CENTER>
