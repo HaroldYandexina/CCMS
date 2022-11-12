@@ -118,3 +118,4 @@
 * Update Activity Status Systems.
 * Update The System Electronic Mail Message System-Wide. Make All Electronic Mail Messages Extremely Detailed, Include I.P. Address, Timestamps and all other specific information about the server and the remote user.
 * Remake the entire Block System and Rename it to 'Panels' and 'Application Panels'.
+* Download last earlier backup from my GCJohnsonChev account and merge with new stuff I'm doing today, on monday 11-14-2022 but do it all from the browser just in case these files got malicious.
