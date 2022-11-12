@@ -129,7 +129,7 @@ if (file_exists($_GLOBAL_INSTALLATION_FILE)) {
 /*
  ================================================================
  +
- + Global System Configuration Files
+ + Global System Configuration Modules
  +
  ================================================================
 */
@@ -145,6 +145,36 @@ $_GLOBAL_CONFIGURATION_FILE							= "./System/Configuration/Global_Configuration
 if (file_exists($_GLOBAL_CONFIGURATION_FILE)) {
 
 	include_once "$_GLOBAL_CONFIGURATION_FILE";
+	
+/*
+ ================================================================
+ +
+ +
+ + @ Inclusion of All Security Modules
+ +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + Global System Security :: Master Variable Sanitization
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + IF: Global System Security File: Master Sanitization Exists, Include It
+ ================================================================
+*/
+
+$_GLOBAL_SECURITY_MASTER_SANITIZATION_FILE			= "./System/Security/Modules/Master_Sanitization";
+
+if (file_exists($_GLOBAL_SECURITY_MASTER_SANITIZATION_FILE)) {
+
+	include_once "$_GLOBAL_SECURITY_MASTER_SANITIZATION_FILE";
 
 /*
  ================================================================
@@ -2121,15 +2151,21 @@ if ($DB->close($_CERBERUS_DATABASE_SERVER_CONNECT)) {
 
 } else {
 
-			echo ("Cerberus: Error, I Cannot Close The Database Server Connection For Internet Protocol Address: <A HREF=\"http://WhoIs.sc/$_GLOBAL_REMOTE_SERVER_ADDRESS\" TITLE=\":: View Detailed Who-Is Information For Internet Protocol Address: $_GLOBAL_REMOTE_SERVER_ADDRESS ::\" TARGET=\"_NEW\">$_GLOBAL_REMOTE_SERVER_ADDRESS</A>&nbsp;|&nbsp;");
+			echo ("Cerberus: Error: I Cannot Close The Database Server Connection For Internet Protocol Address: <A HREF=\"http://WhoIs.sc/$_GLOBAL_REMOTE_SERVER_ADDRESS\" TITLE=\":: View Detailed Who-Is Information For Internet Protocol Address: $_GLOBAL_REMOTE_SERVER_ADDRESS ::\" TARGET=\"_NEW\">$_GLOBAL_REMOTE_SERVER_ADDRESS</A>&nbsp;|&nbsp;");
 
 } // [ + ] IF: Close Database Connection
 
 } else {
 
-			echo ("Cerberus: Error, System Configuration File Missing: $_GLOBAL_CONFIGURATION_FILE | <A HREF=\"./Maintenance/Diagnostics/Diagnose.php\" TITLE=\":: Cerberus Content Management System :: Diagnostics Application ::\" TARGET=\"_NEW\">Please Click Here For Extensive Diagnostics</A>.");
+			echo ("Cerberus: Error: System Configuration File Missing: $_GLOBAL_CONFIGURATION_FILE | <A HREF=\"./Maintenance/Diagnostics/Diagnose.php\" TITLE=\":: Cerberus Content Management System :: Diagnostics Application ::\" TARGET=\"_NEW\">Please Click Here For Extensive Diagnostics</A>.");
+			
+} else {
 
-} // [ + ] IF: File Exists: System Configuration File
+			echo ("Cerberus: Error: System Security File Missing: $_GLOBAL_SECURITY_MASTER_SANITIZATION_FILE | <A HREF=\"./Maintenance/Diagnostics/Diagnose.php\" TITLE=\":: Cerberus Content Management System :: Diagnostics Application ::\" TARGET=\"_NEW\">Please Click Here For Extensive Diagnostics</A>.");
+
+} // [ + ] IF: File Exists: System Configuration File :: Master System Configuration
+
+} // [ + ] IF: File Exists: System Security Module :: Master Sanitization
 
 echo ("
 			This Web Page Will Close After One Hour Of Inactivity.
