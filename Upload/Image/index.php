@@ -20,7 +20,7 @@
  +
  +
  + ---
- + - File Location: root->Cerberus->index.php
+ + - File Location: root->Cerberus->Upload->Image->index.php
  + - File Version:  0.6 - Wednesday, March 1st of 2023.
  + ---
  + -------------------------------------------------------------------------------
@@ -40,7 +40,7 @@
  ================================================================
  +
  +
- + Master Index
+ + @ Directory Master Index
  +
  +
  ================================================================
@@ -49,38 +49,32 @@
 /*
  ================================================================
  +
- + Master Index Variables
+ + Directory Master Index Variables
  +
  ================================================================
 */
 
 /*
  ================================================================
- + Installation Application File Variables
+ + Directory Listing Denial
  ================================================================
 */
 
-$_CerberusCMS_Installation_File		= "../Installation/Install.php";
+$_DIRECTORY_DENIAL_FILE					= "../../System/Default/Messages/Directory_Denial.php";
 
 /*
  ================================================================
- + Check For Installation File: If It Exists, Redirect To It
+ + Directory Listing Denial: IF Directory Denial File Exists, Include It
  ================================================================
 */
 
-if (file_exists($_CerberusCMS_Installation_File)) {
+if (file_exists("$_DIRECTORY_DENIAL_FILE")) {
 
-	header("location: ../Installation/Install.php");
-
-/*
- ================================================================
- + Check For Installation File: If It Does Not Exists, Redirect To Cerberus
- ================================================================
-*/
+	include_once "$_DIRECTORY_DENIAL_FILE";
 
 } else {
 
-	header("location: ./Cerberus.php?Application_Member=News");
+	echo ("Missing Path: $_DIRECTORY_DENIAL_FILE");
 
-} // [ + ] IF_FILE_EXISTS_CerberusCMS_Installation_File
+} // [ + ] IF_FILE_EXISTS: Directory Denial Index->Redirect To Denial Message
 ?>

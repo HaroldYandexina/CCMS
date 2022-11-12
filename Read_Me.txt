@@ -1,4 +1,3 @@
-<?php
 /*
  ===========================================================================================
  + Cerberus Content Management System.
@@ -20,7 +19,7 @@
  +
  +
  + ---
- + - File Location: root->Cerberus->index.php
+ + - File Location: root->Cerberus->License.txt
  + - File Version:  0.6 - Wednesday, March 1st of 2023.
  + ---
  + -------------------------------------------------------------------------------
@@ -36,51 +35,33 @@
  ===========================================================================================
 */
 
-/*
- ================================================================
- +
- +
- + Master Index
- +
- +
- ================================================================
-*/
+================================
+Installation Instructions
+================================
 
-/*
- ================================================================
- +
- + Master Index Variables
- +
- ================================================================
-*/
+https://www.SourceForge.net/projects/cerberuscms/Documentation
+https://www.GitHub.com/TinkeSoftware/CerberusCMS_Documentation
 
-/*
- ================================================================
- + Installation Application File Variables
- ================================================================
-*/
+================================
+CerberusCMS on Source Forge
+================================
 
-$_CerberusCMS_Installation_File		= "../Installation/Install.php";
+https://www.SourceForge.net/projects/cerberuscms/
 
-/*
- ================================================================
- + Check For Installation File: If It Exists, Redirect To It
- ================================================================
-*/
+================================
+CerberusCMS on Source Forge ( Demonstration Server )
+================================
 
-if (file_exists($_CerberusCMS_Installation_File)) {
+http://CerberusCMS.SourceForge.net
 
-	header("location: ../Installation/Install.php");
+================================
+CerberusCMS on Git Hub
+================================
 
-/*
- ================================================================
- + Check For Installation File: If It Does Not Exists, Redirect To Cerberus
- ================================================================
-*/
+https://www.GitHub.com/TinkeSoftware/CerberusCMS
 
-} else {
+================================
+CerberusCMS on Bit Bucket
+================================
 
-	header("location: ./Cerberus.php?Application_Member=News");
-
-} // [ + ] IF_FILE_EXISTS_CerberusCMS_Installation_File
-?>
+https://www.BitBucket.org/TinkeSoftware/CerberusCMS

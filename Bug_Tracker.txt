@@ -1,4 +1,3 @@
-<?php
 /*
  ===========================================================================================
  + Cerberus Content Management System.
@@ -20,7 +19,7 @@
  +
  +
  + ---
- + - File Location: root->Cerberus->index.php
+ + - File Location: root->Cerberus->Bug_Tracker.txt
  + - File Version:  0.6 - Wednesday, March 1st of 2023.
  + ---
  + -------------------------------------------------------------------------------
@@ -39,48 +38,9 @@
 /*
  ================================================================
  +
- +
- + Master Index
- +
+ + Bug Tracker
  +
  ================================================================
 */
 
-/*
- ================================================================
- +
- + Master Index Variables
- +
- ================================================================
-*/
-
-/*
- ================================================================
- + Installation Application File Variables
- ================================================================
-*/
-
-$_CerberusCMS_Installation_File		= "../Installation/Install.php";
-
-/*
- ================================================================
- + Check For Installation File: If It Exists, Redirect To It
- ================================================================
-*/
-
-if (file_exists($_CerberusCMS_Installation_File)) {
-
-	header("location: ../Installation/Install.php");
-
-/*
- ================================================================
- + Check For Installation File: If It Does Not Exists, Redirect To Cerberus
- ================================================================
-*/
-
-} else {
-
-	header("location: ./Cerberus.php?Application_Member=News");
-
-} // [ + ] IF_FILE_EXISTS_CerberusCMS_Installation_File
-?>
+// List Bugs Here
