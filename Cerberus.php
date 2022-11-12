@@ -278,7 +278,7 @@ $_GLOBAL_SYSTEM_SAFEHTML_DIRECTORY						= $_DB_Query_Main_Settings_Fetch_Array['
 $_GLOBAL_SYSTEM_SAFEHTML_STATUS							= $_DB_Query_Main_Settings_Fetch_Array['settings_safeHTML_status'];
 
 /*
- =========================Credentials================================
+ =========================================================
  + Global System S.Q.L. Settings: Plug-Ins :: Text-Editor
  =========================================================
 */
@@ -1615,7 +1615,7 @@ if ($_GLOBAL_SYSTEM_GZIP_STATUS >= 1) {
 /*
  ================================================================
  +
- + Page Generation Variables
+ + Pre-Hyper-Text-Markup-Language Data Compression Variables :: Start
  +
  ================================================================
 */
@@ -1650,6 +1650,14 @@ $_MAIN_PAGE_GENERATION_START_TIME						= $_MAIN_PAGE_GENERATION_START_ARRAY[1] +
  +
  + @ Hyper-Text-Markup-Language Page Generation: Start
  +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + Hyper-Text-Markup-Language Page Generation :: Data Explosion
  +
  ================================================================
 */
@@ -1757,7 +1765,7 @@ include_once "./Applications/Panel/$_MAIN_PANEL_ALIGNED_LEFT_FILE_NAME.panel";
 
 echo ($_THIS_THEMES_APPLICATION_PANELS_2);
 
-} // [ + ] WHILE LISTING PANEL ALIGNED LEFT
+} // [ + ] WHILE: List Panels Aligned Left
 
 /*
  ================================================================
@@ -1841,13 +1849,13 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null &
 
 	echo ($_Message_Cerberus_APPLICATION_ACCESS_RESTRICTED_ADMINISTRATOR);
 
-} // [ + ] IF: ACCESS_LEVEL IS >= 2
+} // [ + ] IF: Access Level Is >= 2
 
-} // [ + ] IF: INCLUDE Administration Application
+} // [ + ] IF: Include Administration Application
 
-} // [ + ] IF_NOT_ADMINISTRATION_DIRECTORY
+} // [ + ] IF: NOT The Administration Directory
 
-} // [ + ] WHILE_READING_ADMINISTRATION_DIRECTORY
+} // [ + ] WHILE: Reading The Administration Directory
 
 /*
  ================================================================
@@ -1899,11 +1907,11 @@ if ($_MAIN_APPLICATION_FILE_PERMISSION <= "0") {
 
 	include_once "./Applications/Member/$_MAIN_APPLICATION_FILE_NAME";
 
-} // [ + ] IF: APPLICATION_PERMISSION IS OPEN
+} // [ + ] IF: Application Module Permission Is Open
 
 /*
  ================================================================
- + IF: Application Module Permission Is Member-Level
+ + IF: Application Module Permission Is Member-Level ( Open )
  ================================================================
 */
 
@@ -1917,9 +1925,9 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null) 
 
 	echo ($_Message_Cerberus_APPLICATION_ACCESS_RESTRICTED_MEMBER);
 
-} // [ + ] APPLICATION_PERMISSION_MEMBER
+} // [ + ] IF: Member Credentials Exist and Are Valid
 
-} // [ + ] IF: APPLICATION_PERMISSION IS Registered Member-Level
+} // [ + ] IF: Application Module Permission Is Registered Member-Level
 
 /*
  ================================================================
@@ -1951,11 +1959,11 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null &
 
 	echo ($_Message_Cerberus_APPLICATION_NOT_FOUND);
 
-} // [ + ] IF: File Exists
+} // [ + ] IF: Application Module File Permission Is Administration-Level ( 2 )
 
-} // [ + ] Application Module Include
+} // [ + ] IF: Member Credentials Exist and Are Valid
 
-} // [ + ] WHILE Reading Application Modules Directory
+} // [ + ] WHILE: Reading Member-Level Application Modules Directory
 
 /*
  ================================================================
@@ -2004,9 +2012,9 @@ if ($_GET[$_INTERNAL_APPLICATION_MODULE_CUSTOM] == "$_CUSTOM_APPLICATION_ID") {
 
 		echo ("<CENTER><BIG><B>$_CUSTOM_APPLICATION_NAME</B></BIG></CENTER><HR>$_CUSTOM_APPLICATION_DATA<HR>Created: $_CUSTOM_APPLICATION_TIME");
 
-} // [ + ] CUSTOM APPLICATION
+} // [ + ] IF: Dipslay Custom Application
 
-} // [ + ] WHILE Fetching Custom Applications
+} // [ + ] WHILE: Fetching Custom Application Entries' In Database
 
 /*
  ================================================================
@@ -2061,7 +2069,7 @@ include_once "./Applications/Panel/$_MAIN_PANEL_ALIGNED_RIGHT_FILE_NAME.panel";
 
 echo ($_THIS_THEMES_APPLICATION_PANELS_2);
 
-} // [ + ] WHILE Listing Panels Aligned Right
+} // [ + ] WHILE: Listing Application Panels Aligned Right
 
 /*
  ================================================================
@@ -2087,7 +2095,7 @@ echo ($_GLOBAL_THEME_LAYOUT_4);
  ================================================================
  +
  +
- + Hyper-Text-Markup-Language Page Generation: End
+ + @ Hyper-Text-Markup-Language Page Generation: End
  +
  +
  ================================================================
@@ -2095,13 +2103,50 @@ echo ($_GLOBAL_THEME_LAYOUT_4);
 
 /*
  ================================================================
- + Hyper-Text-Markup-Language Page Data Generation Variables, Data Implosion
+ +
+ + Hyper-Text-Markup-Language Page Generation :: Data Implosion
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + Pre-Hyper-Text-Markup-Language Data Implosion Variables
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Data Implosion :: Microtime
  ================================================================
 */
 
 $_MAIN_PAGE_GENERATION_END_TIME							= microtime();
+
+/*
+ ================================================================
+ + Data Implosion :: Time Explosion
+ ================================================================
+*/
+
 $_MAIN_PAGE_GENERATION_END_ARRAY						= explode(" ", $_MAIN_PAGE_GENERATION_END_TIME);
+
+/*
+ ================================================================
+ + Data Implosion :: Time Explosion Array
+ ================================================================
+*/
+
 $_MAIN_PAGE_GENERATION_END_TIME							= $_MAIN_PAGE_GENERATION_END_ARRAY[1] + $_MAIN_PAGE_GENERATION_END_ARRAY[0];
+
+/*
+ ================================================================
+ + Data Implosion :: Calculate Start and End Time For Page Generation
+ ================================================================
+*/
+
 $_MAIN_PAGE_GENERATION_TOTAL_TIME						= $_MAIN_PAGE_GENERATION_END_TIME - $_MAIN_PAGE_GENERATION_START_TIME; 
 $_MAIN_PAGE_GENERATION_TOTAL_TIME						= round($_MAIN_PAGE_GENERATION_TOTAL_TIME,5);
 
@@ -2109,7 +2154,7 @@ $_MAIN_PAGE_GENERATION_TOTAL_TIME						= round($_MAIN_PAGE_GENERATION_TOTAL_TIME
  ================================================================
  +
  +
- + Hyper-Text-Markup-Language Document=>End, Output
+ + @ Hyper-Text-Markup-Language Document=>End, Output
  +
  +
  ================================================================
@@ -2123,7 +2168,7 @@ echo ("
  ================================================================
  +
  +
- + Internal Resources :: Close User and Registered Member Connections
+ + Internal Resources :: Close Visitor and Registered Member Connections
  +
  +
  ================================================================
