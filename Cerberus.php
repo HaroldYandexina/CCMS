@@ -73,7 +73,7 @@ error_reporting("E_WARNING ^ E_NOTICE");
 /*
  ================================================================
  +
- + @ Installation Files
+ + Installation Files
  +
  ================================================================
 */
@@ -102,7 +102,7 @@ if (file_exists($_GLOBAL_INSTALLATION_FILE)) {
  ================================================================
  +
  +
- + @ Includsion of All Configuration Files
+ + @ Inclusion of All Configuration Files
  +
  +
  ================================================================
@@ -132,7 +132,7 @@ if (file_exists($_GLOBAL_CONFIGURATION_FILE)) {
  ================================================================
  +
  +
- + @ Initialize Database Class Systems
+ + @ Initializations
  +
  +
  ================================================================
