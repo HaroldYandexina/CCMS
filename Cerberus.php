@@ -145,7 +145,7 @@ $_GLOBAL_CONFIGURATION_FILE							= "./System/Configuration/Global_Configuration
 if (file_exists($_GLOBAL_CONFIGURATION_FILE)) {
 
 	include_once "$_GLOBAL_CONFIGURATION_FILE";
-	
+
 /*
  ================================================================
  +
@@ -411,7 +411,7 @@ $_GLOBAL_COOKIE_MEMBER_LANGUAGE							= $_COOKIE['cerberus_member_language'];
 */
 
 /*
- =========================Credentials=======================================
+ ================================================================
  + IF: Member UserName Cookie and Member Password Cookie Are Not Null, Retrieve Details
  ================================================================
 */
@@ -550,7 +550,7 @@ $_GLOBAL_MEMBER_IP_ADDRESS_LOG								= $_DB_Query_Member_Credentials_Fetch_Arra
 /*
  ================================================================
  +
- + Check For Banned Member
+ + Check For Banned Member Status
  +
  ================================================================
 */
@@ -674,7 +674,7 @@ $_GLOBAL_SERVER_HTTP_USER_AGENT							= $_SERVER['HTTP_USER_AGENT'];
  ================================================================
  +
  +
- + Internal Applications
+ + @ Internal Applications
  +
  +
  ================================================================
@@ -755,7 +755,7 @@ $DB_Query_Check_Login 								= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SER
 
 /*
  ================================================================
- + Fetch Real Member Data From Database Entries
+ + Fetch Real Member Data From Database Server Entries
  ================================================================
 */
 
@@ -766,7 +766,7 @@ $DB_Query_Check_Login_Member_Password						= $DB_Query_Check_Login_Fetch_Array['
 
 /*
  ================================================================
- + If Posted Data Is Exactly The Stored Database Data, Verify The Password
+ + IF: Posted Data Is Exactly The Stored Database Data, Verify The Password
  ================================================================
 */
 
@@ -853,7 +853,7 @@ if ($_GET["InternalApplication"] == "Logout") {
 
 /*
  ================================================================
- + Header Redirect=>News
+ + Header Redirect :: News
  ================================================================
 */
 	
@@ -883,7 +883,7 @@ $_POST_LANGUAGE	 								= $_POST['post_language'];
  ================================================================
  +
  +
- + Internal Information Security Protocols
+ + @ Internal Security Protocols
  +
  +
  ================================================================
@@ -899,7 +899,7 @@ $_POST_LANGUAGE	 								= $_POST['post_language'];
 
 /*
  ================================================================
- + Check For Credentials In Browser Cookies
+ + Check For Credential Data In Browser Cookies
  ================================================================
 */
 
@@ -915,7 +915,7 @@ $_DB_Query_Main_Cookie_Security_Check 						= $DB->query("SELECT * FROM {$_ACCES
 
 /*
  ================================================================
- + IF: Cookies Stored In Browser Match Database Table Entry Exactly
+ + IF: Cookie Data Stored In Browser Match Database Server Table Entry Exactly
  ================================================================
 */
 
@@ -937,7 +937,7 @@ if ($DB->num_rows($_DB_Query_Main_Cookie_Security_Check)) {
 
 $DB->free($_DB_Query_Main_Cookie_Security_Check);
 
-} // [ + ] Credentials_Check
+} // [ + ] Member Credentials Check
 
 /*
  ================================================================
@@ -961,7 +961,7 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null) 
  ================================================================
 */
 
-$_USERNAME_DIRECTORY								= "./Member/$_GLOBAL_COOKIE_MEMBER_USERNAME/index.html";
+$_MEMBER_DIRECTORY_INDEX_FILE						= "./Member/$_GLOBAL_COOKIE_MEMBER_USERNAME/index.html";
 
 /*
  ================================================================
@@ -969,7 +969,7 @@ $_USERNAME_DIRECTORY								= "./Member/$_GLOBAL_COOKIE_MEMBER_USERNAME/index.ht
  ================================================================
 */
 
-if (file_exists($_USERNAME_DIRECTORY)) {
+if (file_exists($_MEMBER_DIRECTORY_INDEX_FILE)) {
 /**
  * Do Nothing
 **/
@@ -977,9 +977,9 @@ if (file_exists($_USERNAME_DIRECTORY)) {
 
 	header("location: ?InternalApplication=Logout"); // Fake Data Found - Redirect To Logout Section
 
-} // [ + ] FILE_EXISTS: USER DIRECTORY
+} // [ + ] File Exists: Member Directory Index
 
-} // [ + ] USERNAME COOKIE
+} // [ + ] Member UserName and Member Password Cookie Check
 
 /*
  ================================================================
@@ -999,7 +999,7 @@ $_DB_Query_Main_Banned_Status_Security_Check 					= $DB->query("SELECT * FROM {$
 
 /*
  ================================================================
- + IF: Current I.P. Address Matches Banned I.P. Addresses List
+ + IF: Current I.P. Address Matches Banned I.P. Addresses In List
  ================================================================
 */
 
@@ -1008,40 +1008,6 @@ if ($DB->num_rows($_DB_Query_Main_Banned_Status_Security_Check)) {
 	header("location: ./Theme/$_GLOBAL_SYSTEM_THEME_DIRECTORY/HTML/Banned.html"); // Banished Internet Protocol Address Found - Redirect To IP Banishment Notification
 
 } // [ + ] Banned Internal Protocol Address Check
-
-/*
- ================================================================
- +
- + Change Mode ( CHMOD ) Permissions Loop
- + FOR DEBUG PURPOSES ONLY
- ================================================================
-*/
-
-/*
- ================================================================
- + Change Mode ( CHMOD ) Permissions Loop, Upload Directory
- ================================================================
-*/
-
-$_CHMOD_UPLOAD_DIRECTORY							= "Upload";
-$_CHMOD_UPLOAD_DIRECTORY_VALUE							= "0777";
-$_OPEN_UPLOAD_DIRECTORY								= opendir($_CHMOD_UPLOAD_DIRECTORY);
-
-while (($_CHMOD_UPLOAD_DIRECTORY_FILES = readdir($_OPEN_UPLOAD_DIRECTORY))) {
-
-if ($_CHMOD_UPLOAD_DIRECTORY_FILES == ".." || $_CHMOD_UPLOAD_DIRECTORY_FILES == "." || $_CHMOD_UPLOAD_DIRECTORY_FILES == "index.php") {
-/**
- * Skip These Files
-**/
-} else {
-
-	chmod("$_CHMOD_UPLOAD_DIRECTORY", octdec($_CHMOD_UPLOAD_DIRECTORY_VALUE));
-	chmod("$_CHMOD_UPLOAD_DIRECTORY/$_CHMOD_UPLOAD_DIRECTORY_FILES", octdec($_CHMOD_UPLOAD_DIRECTORY_VALUE));
-
-} // [ + ] Read Upload Directory
-
-} // [ + ] WHILE_READ_DIRECTORY_UPLOAD
-/*
 
 /*
  ================================================================
@@ -1101,11 +1067,45 @@ if ($_GLOBAL_SYSTEM_SAFEHTML_STATUS >= 1) {
  ================================================================
  +
  +
- + Internal Loops
+ + @ Internal Loops
  +
  +
  ================================================================
 */
+
+/*
+ ================================================================
+ +
+ + File Permissions Loop :: Change Mode ( CHMOD ) Permissions Loop
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Change Mode ( CHMOD ) Permissions Loop, Upload Directory
+ ================================================================
+*/
+
+$_CHMOD_UPLOAD_DIRECTORY							= "Upload";
+$_CHMOD_UPLOAD_DIRECTORY_VALUE							= "0777";
+$_OPEN_UPLOAD_DIRECTORY								= opendir($_CHMOD_UPLOAD_DIRECTORY);
+
+while (($_CHMOD_UPLOAD_DIRECTORY_FILES = readdir($_OPEN_UPLOAD_DIRECTORY))) {
+
+if ($_CHMOD_UPLOAD_DIRECTORY_FILES == ".." || $_CHMOD_UPLOAD_DIRECTORY_FILES == "." || $_CHMOD_UPLOAD_DIRECTORY_FILES == "index.php") {
+/**
+ * Skip These Files
+**/
+} else {
+
+	chmod("$_CHMOD_UPLOAD_DIRECTORY", octdec($_CHMOD_UPLOAD_DIRECTORY_VALUE));
+	chmod("$_CHMOD_UPLOAD_DIRECTORY/$_CHMOD_UPLOAD_DIRECTORY_FILES", octdec($_CHMOD_UPLOAD_DIRECTORY_VALUE));
+
+} // [ + ] Read Upload Directory
+
+} // [ + ] WHILE_READ_DIRECTORY_UPLOAD
+/*
 
 /*
  ================================================================
@@ -1152,7 +1152,7 @@ $_GLOBAL_MEMBER_THEME_DIRECTORY								= $_GLOBAL_SYSTEM_THEME_DIRECTORY;
 /*
  ================================================================
  +
- + Update Member Active Status
+ + Member Loop :: Update Member Active Status
  +
  ================================================================
 */
@@ -1178,7 +1178,7 @@ $_DB_Query_Set_Member_Active_Status 						= $DB->query("UPDATE {$_ACCESS_DATABAS
 /*
  ================================================================
  +
- + Referrer Logging Loop
+ + Member Loop :: Referrer Activity Logging
  +
  ================================================================
 */
@@ -1228,7 +1228,7 @@ $DB->free($_DB_Query_Set_Member_Last_Post);
 /*
  ================================================================
  +
- + Rank Logging Loop
+ + Member Loop :: Rank Logging Loop
  +
  ================================================================
 */
@@ -1310,7 +1310,7 @@ if ($_GLOBAL_MEMBER_NUMBER_OF_POSTS >= 1500) {
 /*
  ================================================================
  +
- + Update Member Rank
+ + Member Loop :: Update Member Rank
  +
  ================================================================
 */
@@ -1425,7 +1425,7 @@ $DB->free($_DB_Query_Main_Member_Rank);
 /*
  ================================================================
  +
- + Specified Language Cookie Loop
+ + Member Loop :: Specified Language Cookie Loop
  +
  ================================================================
 */
@@ -1446,7 +1446,7 @@ $_GLOBAL_SYSTEM_LANGUAGE_DIRECTORY							= $_GLOBAL_COOKIE_MEMBER_LANGUAGE;
  ================================================================
  +
  +
- + Background Application Module Includes
+ + @ Background Application Module Includes
  +
  +
  ================================================================
@@ -1465,7 +1465,7 @@ include_once "./System/Language/$_GLOBAL_SYSTEM_LANGUAGE_DIRECTORY/Language.cerb
 /*
  ================================================================
  +
- + Member Activity Logging Background Application Modules
+ + Activity Logging Background Application Modules
  +
  ================================================================
 */
@@ -1480,7 +1480,7 @@ include_once "./Applications/Background/Log_Administration";
 
 /*
  ================================================================
- + Background Activity Logging Application Module
+ + Background-Level Activity Logging Application Module
  ================================================================
 */
 
@@ -1513,14 +1513,24 @@ include_once "./Theme/$_GLOBAL_SYSTEM_THEME_DIRECTORY/Theme.php";
 /*
  ================================================================
  +
- + Text-Editor Application Module Includes
+ +
+ + @ Plug-In and Extension File Includes
+ +
  +
  ================================================================
 */
 
 /*
  ================================================================
- + Text-Editor Application Module
+ +
+ + Text-Editor Plug-In
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Plug-In :: Text-Editor Application Plug-In
  ================================================================
 */
 
@@ -1530,7 +1540,7 @@ include_once "./System/Plug-Ins/Text-Editor/$_GLOBAL_SYSTEM_TEXT_EDITOR_DIRECTOR
  ================================================================
  +
  +
- + Offline Mode Protocols
+ + @ System Protocols
  +
  +
  ================================================================
@@ -1538,7 +1548,15 @@ include_once "./System/Plug-Ins/Text-Editor/$_GLOBAL_SYSTEM_TEXT_EDITOR_DIRECTOR
 
 /*
  ================================================================
- + IF: Offline-Mode Is On, ( 1 ) Redirect To Offline-Mode Status
+ +
+ + System Protocol :: Offline Mode
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + IF: Offline-Mode Is On, ( 1 ) Redirect To Offline-Mode Status Message
  ================================================================
 */
 
@@ -1560,7 +1578,7 @@ if ($_GLOBAL_MEMBER_ACCESS_LEVEL >= 2) {
  ================================================================
  +
  +
- + Hyper-Text-Markup-Language Page Data Compression Protocols
+ + @ Hyper-Text-Markup-Language Page Data Compression Protocols
  +
  +
  ================================================================
@@ -1588,7 +1606,7 @@ if ($_GLOBAL_SYSTEM_GZIP_STATUS >= 1) {
  ================================================================
  +
  +
- + Hyper-Text-Markup-Language Page Generation=>Start
+ + @ Pre-Hyper-Text-Markup-Language Output Data Control
  +
  +
  ================================================================
@@ -1596,19 +1614,41 @@ if ($_GLOBAL_SYSTEM_GZIP_STATUS >= 1) {
 
 /*
  ================================================================
- + Hyper-Text-Markup-Language Page Data Generation Variables, Data Explosion
+ +
+ + Page Generation Variables
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Hyper-Text-Markup-Language Page Data Generation Variables :: Initialize Microtime
  ================================================================
 */
 
 $_MAIN_PAGE_GENERATION_START_TIME						= microtime();
+
+/*
+ ================================================================
+ + Hyper-Text-Markup-Language Page Data Generation Variables :: Time Explosion
+ ================================================================
+*/
+
 $_MAIN_PAGE_GENERATION_START_ARRAY						= explode(" ", $_MAIN_PAGE_GENERATION_START_TIME);
+
+/*
+ ================================================================
+ + Hyper-Text-Markup-Language Page Data Generation Variables :: Explode Microtime=>Data
+ ================================================================
+*/
+
 $_MAIN_PAGE_GENERATION_START_TIME						= $_MAIN_PAGE_GENERATION_START_ARRAY[1] + $_MAIN_PAGE_GENERATION_START_ARRAY[0];
 
 /*
  ================================================================
  +
  +
- + Hyper-Text-Markup-Language Page Generation: Start
+ + @ Hyper-Text-Markup-Language Page Generation: Start
  +
  +
  ================================================================
@@ -2158,7 +2198,7 @@ if ($DB->close($_CERBERUS_DATABASE_SERVER_CONNECT)) {
 } else {
 
 			echo ("Cerberus: Error: System Configuration File Missing: $_GLOBAL_CONFIGURATION_FILE | <A HREF=\"./Maintenance/Diagnostics/Diagnose.php\" TITLE=\":: Cerberus Content Management System :: Diagnostics Application ::\" TARGET=\"_NEW\">Please Click Here For Extensive Diagnostics</A>.");
-			
+
 } else {
 
 			echo ("Cerberus: Error: System Security File Missing: $_GLOBAL_SECURITY_MASTER_SANITIZATION_FILE | <A HREF=\"./Maintenance/Diagnostics/Diagnose.php\" TITLE=\":: Cerberus Content Management System :: Diagnostics Application ::\" TARGET=\"_NEW\">Please Click Here For Extensive Diagnostics</A>.");
