@@ -1,0 +1,99 @@
+<?php
+/*
+ =============================================================================================
+ + Cerberus Content Management System.
+ + ---
+ + - Author : Gary Christopher Johnson
+ + - E-Mail : TinkeSoftware@Protonmail.com
+ + - Company: Tinke Software
+ + - Notes  : View this file in a non-formatting text editor for correct indentation display
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Cerberus->Applications->Administration->Submissions
+ + - File Version:  0.6 - Wednesday, March 1st of 2023.
+ + ---
+ + -------------------------------------------------------------------------------
+ + --()()--()()()--()()()--()()()---()()()--()()()--()--()------()()()------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()()()--()()()--()()()---()()()--()()()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------/-\-
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------|4|-  ~ Wynn ~
+ + --()()--()()()--()--()--()()()---()()()--()--()--()()()--()()()------------\-/- Build: 0.8
+ ===========================================================================================
+*/
+
+/*
+ ================================================================
+ +
+ +
+ + Submissions Management
+ +
+ +
+ ================================================================
+*/
+
+$_Application_Module_Administration_Submissions_SQL_Query_SELECT_SUBMISSIONS			= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_news_submissions");
+
+													echo ("<CENTER><B>News & Message Submission(s)</B></CENTER><HR>");
+
+if ($DB->num_rows($_Application_Module_Administration_Submissions_SQL_Query_SELECT_SUBMISSIONS) <= 0) {
+													echo ($_Message_Submissions_NO_SUBMISSIONS_EXIST);
+} else {
+
+while ($_Application_Module_Administration_Submissions_SQL_Query_SELECT_SUBMISSIONS_Fetch_Array = $DB->fetch_array($_Application_Module_Administration_Submissions_SQL_Query_SELECT_SUBMISSIONS)) {
+
+$_Application_Module_Administration_Submissions_LIST_SUBMISSION_ID					= $_Application_Module_Administration_Submissions_SQL_Query_SELECT_SUBMISSIONS_Fetch_Array['id'];
+$_Application_Module_Administration_Submissions_LIST_SUBMISSION_AUTHOR				= $_Application_Module_Administration_Submissions_SQL_Query_SELECT_SUBMISSIONS_Fetch_Array['submission_author'];
+$_Application_Module_Administration_Submissions_LIST_SUBMISSION_DATA				= $_Application_Module_Administration_Submissions_SQL_Query_SELECT_SUBMISSIONS_Fetch_Array['submission_data'];
+$_Application_Module_Administration_Submissions_LIST_SUBMISSION_TIME				= $_Application_Module_Administration_Submissions_SQL_Query_SELECT_SUBMISSIONS_Fetch_Array['submission_time'];
+
+echo ("
+													Submitted: $_Application_Module_Administration_Submissions_LIST_SUBMISSION_TIME - By: <A HREF=\"?Application&#61;Profile&amp;Name&#61;$_Application_Module_Administration_Submissions_LIST_SUBMISSION_AUTHOR\" TITLE=\"Profile :: $_Application_Module_Administration_Submissions_LIST_SUBMISSION_AUTHOR\">$_Application_Module_Administration_Submissions_LIST_SUBMISSION_AUTHOR</A><HR>
+													<I>$_Application_Module_Administration_Submissions_LIST_SUBMISSION_DATA</I><HR>
+													[ <A HREF=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Submissions&amp;DeleteID&#61;$_Application_Module_Administration_Submissions_LIST_SUBMISSION_ID\" TITLE=\"Delete This Submission\">Delete</A> - <A HREF=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Publish&amp;SubmissionID&#61;$_Application_Module_Administration_Submissions_LIST_SUBMISSION_ID\" TITLE=\"Publish This Submission\">Publish</A> ]<BR><BR>
+");
+
+/*
+ ================================================================
+ +
+ +
+ + Delete Submission ID
+ +
+ +
+ ================================================================
+*/
+
+if ($_GET["DeleteID"] == "$_Application_Module_Administration_Submissions_LIST_SUBMISSION_ID") {
+
+$_Application_Module_Administration_Submissions_DB_Query_DELETE_SUBMISSION				= $DB->query("DELETE FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_news_submissions WHERE id='$_Application_Module_Administration_Submissions_LIST_SUBMISSION_ID'");
+
+if ($_Application_Module_Administration_Submissions_DB_Query_DELETE_SUBMISSION) {
+													echo ($_Message_Submissions_SUBMISSION_DELETED_SUCCESSFULLY);
+} else {
+													echo ($_Message_ERROR_ACTION_UNIVERSAL);
+} // [ + ] IF_DELETE_QUERY
+
+$DB->free($_Application_Module_Administration_Submissions_DB_Query_DELETE_SUBMISSION);
+
+} // [ + ] IF_DELETE
+
+} // [ + ] WHILE_ARRAY
+
+} // [ + ] IF_NUM_ROWS
+
+$DB->free($_Application_Module_Administration_Submissions_SQL_Query_SELECT_SUBMISSIONS);
+?>
