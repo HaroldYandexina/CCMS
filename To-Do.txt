@@ -118,4 +118,4 @@
 * Update Activity Status Systems.
 * Update The System Electronic Mail Message System-Wide. Make All Electronic Mail Messages Extremely Detailed, Include I.P. Address, Timestamps and all other specific information about the server and the remote user.
 * Remake the entire Block System and Rename it to 'Panels' and 'Application Panels'.
-* Download last earlier backup from my GCJohnsonChev account and merge with new stuff I'm doing today, on monday 11-14-2022 but do it all from the browser just in case these files got malicious.
+* Download last earlier backup from my GCJohnsonChev account and merge with new stuff I'm doing today, on monday 11-14-2022 but do it all from the browser just in case these files got malicious. Everything will need to be done from the browser. No local files. First do a DL of latest backup zip from GCJohnsonChev, then upload raw files to new repo then download the files from here and upload them to a different repo from that one then manually CUT / Paste from browser from repo to repo. Download as ZIP and put all of the files with the earlier master directory. Zip and backup. Don't forget that.
