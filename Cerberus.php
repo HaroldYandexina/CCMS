@@ -55,6 +55,14 @@
  * to get a good understanding of how the entire system works
  * and how to write programming code for CerberusCMS. This includes
  * Application Modules, Application Panels, Custom Themes and more.
+ *
+ *
+ *
+ *
+ * Architecture Programming Keys
+ * @, Header of Programming Systems
+ * =>, Ever-Changing Information Within Never-Changing Variable Name
+ * ::, Index Section of Header
  ===============================================================
  */
 
@@ -151,7 +159,7 @@ if (file_exists($_GLOBAL_CONFIGURATION_FILE)) {
 /*
  ================================================================
  +
- + Global Database Management System Variables and Functions
+ + Global Database Management System Objects, Functions and Variables
  +
  ================================================================
 */
@@ -210,14 +218,14 @@ if ($_CERBERUS_DATABASE_SERVER_DATABASE_NAME_SELECT) {
 /*
  ================================================================
  +
- + Global System S.Q.L. Settings
+ + Global S.Q.L. Settings :: System-Wide
  +
  ================================================================
 */
 
 /*
  ================================================================
- + Database Server Query: Retrieve System Settings
+ + Database Server Query: Retrieve Settings :: System-Wide
  ================================================================
 */
 
@@ -240,7 +248,7 @@ $_GLOBAL_SYSTEM_SAFEHTML_DIRECTORY						= $_DB_Query_Main_Settings_Fetch_Array['
 $_GLOBAL_SYSTEM_SAFEHTML_STATUS							= $_DB_Query_Main_Settings_Fetch_Array['settings_safeHTML_status'];
 
 /*
- =========================================================
+ =========================Credentials================================
  + Global System S.Q.L. Settings: Plug-Ins :: Text-Editor
  =========================================================
 */
@@ -373,8 +381,8 @@ $_GLOBAL_COOKIE_MEMBER_LANGUAGE							= $_COOKIE['cerberus_member_language'];
 */
 
 /*
- ================================================================
- + IF: UserName and User Password Are Not Null, Fetch Credentials
+ =========================Credentials=======================================
+ + IF: Member UserName Cookie and Member Password Cookie Are Not Null, Retrieve Details
  ================================================================
 */
 
@@ -382,7 +390,7 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null) 
 
 /*
  ================================================================
- + Database Server Query: Fetch Member Credentials
+ + Database Server Query: Fetch Database Stored Member Credentials
  ================================================================
 */
 
@@ -483,7 +491,7 @@ $_GLOBAL_MEMBER_LEVEL_RANK								= $_DB_Query_Member_Credentials_Fetch_Array['m
  ================================================================
 */
 
-$_GLOBAL_MEMBER_THEME_DIRECTORY								= $_DB_Query_Member_Credentials_Fetch_Array['member_theme_directory'];
+$_GLOBAL_MEMBER_THEME_DIRECTORY_DIRECTORY								= $_DB_Query_Member_Credentials_Fetch_Array['member_theme_directory'];
 
 /*
  ================================================================
@@ -519,7 +527,7 @@ $_GLOBAL_MEMBER_IP_ADDRESS_LOG								= $_DB_Query_Member_Credentials_Fetch_Arra
 
 /*
  ================================================================
- + IF: Member Banned Status Is Active, Redirect To Banned Message ( 1 )
+ + IF: Member Banned Status Is Active, Redirect To The Banned Message ( 1 )
  ================================================================
 */
 
@@ -534,28 +542,48 @@ if ($_GLOBAL_MEMBER_STATUS_BANNED >= 1) {
 /*
  ================================================================
  +
- + Global Time, Date & Referrer Variables
+ + Global Date, Time and Referrer Variables
  +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Global Local Server Variables :: Date
  ================================================================
 */
 
 $_GLOBAL_DATE									= date("l, F j, Y g:i:s A");
 $_GLOBAL_DATE_RFC								= date("r");
+
+/*
+ ================================================================
+ + Global Local Server Variables :: Time
+ ================================================================
+*/
+
 $_GLOBAL_DATE_MINUTES								= date("i");
 $_GLOBAL_DATE_SECONDS								= date("s");
+
+/*
+ ================================================================
+ + Global Local Server Variables :: Hyper-Text-Transfer-Protocol :: Referrer
+ ================================================================
+*/
+
 $_GLOBAL_HTTP_REFERRER								= $_SERVER['HTTP_REFERER'];
 
 /*
  ================================================================
  +
- + Server Protocol Variables
+ + Global Remote Server Variables
  +
  ================================================================
 */
 
 /*
  ================================================================
- + User Connection Protocol Variables
+ + Global Remote Server Variables :: Machine Information
  ================================================================
 */
 
@@ -566,7 +594,15 @@ $_GLOBAL_REMOTE_USER								= $_SERVER['REMOTE_USER'];
 
 /*
  ================================================================
- + Server Information Protocol Variables
+ +
+ + Global Local Server Variables
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Global Local Server Variables :: Machine Information
  ================================================================
 */
 
@@ -578,7 +614,7 @@ $_GLOBAL_SERVER_PROTOCOL							= $_SERVER['SERVER_PROTOCOL'];
 
 /*
  ================================================================
- + Server Request Protocol Variables
+ + Global Remote Server Variables :: Connection Request Information
  ================================================================
 */
 
@@ -590,7 +626,7 @@ $_GLOBAL_SERVER_DOCUMENT_ROOT							= $_SERVER['DOCUMENT_ROOT'];
 
 /*
  ================================================================
- + Server Hyper-Text-Transfer-Protocol Variables
+ + Global Remote Server Variables :: Hyper-Text-Transfer-Protocol Information
  ================================================================
 */
 
@@ -608,7 +644,7 @@ $_GLOBAL_SERVER_HTTP_USER_AGENT							= $_SERVER['HTTP_USER_AGENT'];
  ================================================================
  +
  +
- + Setting Cookies
+ + Internal Applications
  +
  +
  ================================================================
@@ -617,7 +653,9 @@ $_GLOBAL_SERVER_HTTP_USER_AGENT							= $_SERVER['HTTP_USER_AGENT'];
 /*
  ================================================================
  +
+ +
  + Internal Application :: Login
+ +
  +
  ================================================================
 */
@@ -671,7 +709,7 @@ $_POST_LOGIN_USERNAME_CLEAR							= stripslashes($_POST_LOGIN_USERNAME_CLEAR);
 /*
  ================================================================
  +
- + Internal Security=>Check Post Data Versus Stored Server Data
+ + Internal Security :: Check Post Data Versus Stored Server Data
  +
  ================================================================
 */
@@ -1061,9 +1099,9 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null) 
  ================================================================
 */
 
-if ($_GLOBAL_MEMBER_THEME == "") {
+if ($_GLOBAL_MEMBER_THEME_DIRECTORY == "") {
 
-$_GLOBAL_MEMBER_THEME								= $_GLOBAL_SYSTEM_THEME_DIRECTORY;
+$_GLOBAL_MEMBER_THEME_DIRECTORY								= $_GLOBAL_SYSTEM_THEME_DIRECTORY;
 
 } // [ + ] Global_Member_Theme_Null
 
@@ -1075,9 +1113,9 @@ $_GLOBAL_MEMBER_THEME								= $_GLOBAL_SYSTEM_THEME_DIRECTORY;
  ================================================================
 */
 
-if ($_GLOBAL_MEMBER_THEME == "") {
+if ($_GLOBAL_MEMBER_THEME_DIRECTORY == "") {
 
-$_GLOBAL_MEMBER_THEME								= $_GLOBAL_SYSTEM_THEME_DIRECTORY;
+$_GLOBAL_MEMBER_THEME_DIRECTORY								= $_GLOBAL_SYSTEM_THEME_DIRECTORY;
 
 } // [ + ] Global_Non_Logged_In_Member_Theme_Null
 
