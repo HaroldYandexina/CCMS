@@ -20,7 +20,7 @@
  +
  +
  + ---
- + - File Location: root=>Cerberus=>Cerberus.php
+ + - File Location: root->Cerberus->Cerberus.php
  + - File Version:  0.6 - Wednesday, March 1st of 2023.
  + ---
  + -------------------------------------------------------------------------------
@@ -42,11 +42,21 @@
  +
  +
  + Cerberus Content Management System :: Kernel
- +    This Kernel File Has Complete Control
+ +
  +
  +
  ================================================================
 */
+
+/*
+ ================================================================
+ * This Kernel File Has Complete Control of Everything System-Wide
+ * Refer to the programming documentation videos and portable-documents
+ * to get a good understanding of how the entire system works
+ * and how to write programming code for CerberusCMS. This includes
+ * Application Modules, Application Panels, Custom Themes and more.
+ ===============================================================
+ */
 
 /*
  ================================================================
@@ -493,7 +503,7 @@ $_GLOBAL_MEMBER_IP_ADDRESS_AUTHORIZED								= $_DB_Query_Member_Credentials_Fet
 
 /*
  ================================================================
- + Global Member Settings Variables :: Authorized I.P. Address
+ + Global Member Settings Variables :: I.P. Address Log
  ================================================================
 */
 
