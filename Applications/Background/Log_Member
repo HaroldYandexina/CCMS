@@ -167,8 +167,8 @@ Visitor Server Connection Type: $_GLOBAL_SERVER_HTTP_CONNECTION_TYPE<BR><BR>
 
 <B>Local Server Information</B><BR>
 Local Hyper-Text-Transfer-Protocol Host: $_GLOBAL_SERVER_HTTP_HOST<BR>
-Local Server Gateway Interface: $_GLOBAL_SERVER_GATEWAY_INTERFACE<BR>
-Local Server Address: <A HREF=\"http://www.WhoIs.sc/$_GLOBAL_SERVER_ADDRESS\" TARGET=\"_NEW\" TITLE=\":: Open & Display The Who-Is Information For Local Server Internet Protocol Address :: $_GLOBAL_SERVER_ADDRESS ::\">$_GLOBAL_SERVER_ADDRESS</A><BR>
+Local Server Network Gateway Interface: $_GLOBAL_SERVER_GATEWAY_INTERFACE<BR>
+Local Server Internet Protocol Address: <A HREF=\"http://www.WhoIs.sc/$_GLOBAL_SERVER_ADDRESS\" TARGET=\"_NEW\" TITLE=\":: Open & Display The Who-Is Information For Local Server Internet Protocol Address :: $_GLOBAL_SERVER_ADDRESS ::\">$_GLOBAL_SERVER_ADDRESS</A><BR>
 Local Server Software: $_GLOBAL_SERVER_SOFTWARE<BR>
 Local Server Request Time: $_GLOBAL_SERVER_REQUEST_TIME<BR>
 Local Server Request Time ( Float ): $_GLOBAL_SERVER_REQUEST_TIME_FLOAT<BR>
