@@ -20,7 +20,7 @@
  +
  +
  + ---
- + - File Location: root->Cerberus->Cerberus.php
+ + - File Location: root=>Cerberus=>Cerberus.php
  + - File Version:  0.6 - Wednesday, March 1st of 2023.
  + ---
  + -------------------------------------------------------------------------------
@@ -52,7 +52,7 @@
  ================================================================
  +
  +
- + Cerberus Kernel->Error Handling
+ + @ Error Handling Systems
  +
  +
  ================================================================
@@ -66,6 +66,14 @@ error_reporting("E_WARNING ^ E_NOTICE");
  +
  + @ Internal File Redirection Systems
  +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + @ Installation Files
  +
  ================================================================
 */
@@ -94,7 +102,7 @@ if (file_exists($_GLOBAL_INSTALLATION_FILE)) {
  ================================================================
  +
  +
- + @ Configuration Files
+ + @ Includsion of All Configuration Files
  +
  +
  ================================================================
@@ -102,7 +110,15 @@ if (file_exists($_GLOBAL_INSTALLATION_FILE)) {
 
 /*
  ================================================================
- + If Global Configuration File Exists, Include It
+ +
+ + Global System Configuration Files
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + If Global System Configuration File Exists, Include It
  ================================================================
 */
 
@@ -124,7 +140,15 @@ if (file_exists($_GLOBAL_CONFIGURATION_FILE)) {
 
 /*
  ================================================================
- + Global Database Management System Class Variables and Functions
+ +
+ + Global Database Management System Variables and Functions
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Database Management Server System :: Initialize Database Class
  ================================================================
 */
 
@@ -149,15 +173,15 @@ $_CERBERUS_DATABASE_SERVER_DATABASE_NAME_SELECT 				= mysql_select_db($_ACCESS_D
 
 /*
  ================================================================
- + If Specified Database Server Name Exists, Connect To It
+ + IF: Specified Database Server Name Exists, Connect To It
  ================================================================
 */
 
 if ($_CERBERUS_DATABASE_SERVER_CONNECT) {
 
 /*
- ================================================================Assigned
- + If Specified Database Server Database Name Exists, Select It
+ ================================================================
+ + IF: Specified Database Server Database Name Exists, Select It
  ================================================================
 */
 
@@ -175,20 +199,20 @@ if ($_CERBERUS_DATABASE_SERVER_DATABASE_NAME_SELECT) {
 
 /*
  ================================================================
+ +
+ + Global System S.Q.L. Settings
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
  + Database Server Query: Retrieve System Settings
  ================================================================
 */
 
 $_DB_Query_Select_Main_Settings							= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_settings WHERE id='1'");
 $_DB_Query_Main_Settings_Fetch_Array						= $DB->fetch_array($_DB_Query_Select_Main_Settings);
-
-/*
- ================================================================
- +
- + Global System S.Q.L. Settings
- +
- ================================================================
-*/
 
 /*
  ================================================================
@@ -369,7 +393,7 @@ $_GLOBAL_MEMBER_ACCESS_LEVEL							= $_DB_Query_Member_Credentials_Fetch_Array['
  ================================================================
 */
 
-$_GLOBAL_MEMBER_ACTIVE_STATUS							= $_DB_Query_Member_Credentials_Fetch_Array['member_active_status'];
+$_GLOBAL_MEMBER_STATUS_ACTIVE							= $_DB_Query_Member_Credentials_Fetch_Array['member_status_active'];
 
 /*
  ================================================================
@@ -385,7 +409,7 @@ $_GLOBAL_MEMBER_IMAGE_AVATAR								= $_DB_Query_Member_Credentials_Fetch_Array[
  ================================================================
 */
 
-$_GLOBAL_MEMBER_BANNED_STATUS							= $_DB_Query_Member_Credentials_Fetch_Array['member_banned_status'];
+$_GLOBAL_MEMBER_STATUS_BANNED							= $_DB_Query_Member_Credentials_Fetch_Array['member_status_banned'];
 
 /*
  ================================================================
@@ -465,7 +489,7 @@ $_GLOBAL_MEMBER_IP_ADDRESS_LAST_KNOWN								= $_DB_Query_Member_Credentials_Fet
  ================================================================
 */
 
-$_GLOBAL_MEMBER_IP_ADDRESS_LAST_KNOWN								= $_DB_Query_Member_Credentials_Fetch_Array['member_ip_address_authorized'];
+$_GLOBAL_MEMBER_IP_ADDRESS_AUTHORIZED								= $_DB_Query_Member_Credentials_Fetch_Array['member_ip_address_authorized'];
 
 /*
  ================================================================
@@ -489,7 +513,7 @@ $_GLOBAL_MEMBER_IP_ADDRESS_LOG								= $_DB_Query_Member_Credentials_Fetch_Arra
  ================================================================
 */
 
-if ($_GLOBAL_MEMBER_BANNED_STATUS >= 1) {
+if ($_GLOBAL_MEMBER_STATUS_BANNED >= 1) {
 
 	header("location: ./Theme/$_GLOBAL_SYSTEM_THEME_DIRECTORY/HTML/Banned.html");
 
@@ -583,14 +607,14 @@ $_GLOBAL_SERVER_HTTP_USER_AGENT							= $_SERVER['HTTP_USER_AGENT'];
 /*
  ================================================================
  +
- + Internal Application->Login
+ + Internal Application :: Login
  +
  ================================================================
 */
 
 /*
  ================================================================
- + If Internal Application->Login Is Activated
+ + IF: Internal Application :: Login Is Activated
  ================================================================
 */
 
@@ -599,14 +623,14 @@ if ($_GET["InternalApplication"] == "Login") {
 /*
  ================================================================
  +
- + Internal Application->Login Form Post Variables
+ + Internal Application :: Login Form Post Variables
  +
  ================================================================
 */
 
 /*
  ================================================================
- + Internal Security->Strip Electronic Mail Address Post Data
+ + Internal Security=>Strip Electronic Mail Address Post Data
  ================================================================
 */
 
@@ -616,7 +640,7 @@ $_POST_LOGIN_ELECTRONIC_MAIL_ADDRESS_CLEAR					= stripslashes($_POST_LOGIN_ELECT
 
 /*
  ================================================================
- + Internal Security->Strip Password Post Data
+ + Internal Security=>Strip Password Post Data
  ================================================================
 */
 
@@ -626,7 +650,7 @@ $_POST_LOGIN_PASSWORD_CLEAR							= stripslashes($_POST_LOGIN_PASSWORD_CLEAR);
 
 /*
  ================================================================
- + Internal Security->Strip UserName Post Data
+ + Internal Security=>Strip UserName Post Data
  ================================================================
 */
 
@@ -637,7 +661,7 @@ $_POST_LOGIN_USERNAME_CLEAR							= stripslashes($_POST_LOGIN_USERNAME_CLEAR);
 /*
  ================================================================
  +
- + Internal Security->Checking Post Data Versus Stored Server Data
+ + Internal Security=>Check Post Data Versus Stored Server Data
  +
  ================================================================
 */
@@ -682,7 +706,7 @@ if (password_verify($_POST_LOGIN_PASSWORD_CLEAR, $DB_Query_Check_Login_Member_Pa
 
 /*
  ================================================================
- + Header Redirect->Control Panel
+ + Header Redirect :: Control Panel
  ================================================================
 */
 	
@@ -721,7 +745,7 @@ $DB->free($DB_Query_Check_Login_Array);
 /*
  ================================================================
  +
- + Internal Application->Logout
+ + Internal Application :: Logout
  +
  ================================================================
 */
@@ -730,7 +754,7 @@ if ($_GET["InternalApplication"] == "Logout") {
 
 /*
  ================================================================
- + Secure Destroy All Cookies
+ + Reduce Time On All Stored Browser Cookies
  ================================================================
 */
 
@@ -741,7 +765,17 @@ if ($_GET["InternalApplication"] == "Logout") {
 
 /*
  ================================================================
- + Header Redirect->News
+ + Secure-Destroy All Stored Browser Cookies
+ ================================================================
+*/
+
+/*
+ + Nothing Here Yet
+*/
+
+/*
+ ================================================================
+ + Header Redirect=>News
  ================================================================
 */
 	
@@ -752,7 +786,7 @@ if ($_GET["InternalApplication"] == "Logout") {
 /*
  ================================================================
  +
- + Internal Application->Set Language
+ + Internal Application :: Set Language
  +
  ================================================================
 */
@@ -780,7 +814,7 @@ $_POST_LANGUAGE	 								= $_POST['post_language'];
 /*
  ================================================================
  +
- + Internal Security->Fake Cookies Versus Real Data
+ + Internal Security :: Fake Cookies Versus Real Data
  +
  ================================================================
 */
@@ -830,7 +864,7 @@ $DB->free($_DB_Query_Main_Cookie_Security_Check);
 /*
  ================================================================
  +
- + Internal Security->Stored Browser Cookies Versus Physical Directories and Files
+ + Internal Security :: Stored Browser Cookies Versus Physical Directories and Files
  +
  ================================================================
 */
@@ -872,7 +906,7 @@ if (file_exists($_USERNAME_DIRECTORY)) {
 /*
  ================================================================
  +
- + Internal Security->Check For Banned and Filtered Internet Protocol Addresses
+ + Internal Security :: Check For Banned and Filtered Internet Protocol Addresses
  +
  ================================================================
 */
@@ -1027,7 +1061,7 @@ $_GLOBAL_MEMBER_THEME								= $_GLOBAL_SYSTEM_THEME_DIRECTORY;
 
 /*
  ================================================================
- + If Non-Logged In Member Theme Is Null, Set System Theme
+ + IF: Non-Logged In Member Theme Is Null, Set System Theme
  ================================================================
 */
 
@@ -1055,11 +1089,11 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null) 
 
 /*
  ================================================================
- + If Member Is Logged-In, Set Active Status
+ + IF: Member Is Logged-In, Set Active Status
  ================================================================
 */
 
-$_DB_Query_Set_Member_Active_Status 						= $DB->query("UPDATE {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_members SET member_active_status='1' WHERE member_username='$_GLOBAL_COOKIE_MEMBER_USERNAME'");
+$_DB_Query_Set_Member_Active_Status 						= $DB->query("UPDATE {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_members SET member_status_active='1' WHERE member_username='$_GLOBAL_COOKIE_MEMBER_USERNAME'");
 
 } // [ + ] Credentials_Check
 
@@ -1209,7 +1243,7 @@ if ($_GLOBAL_MEMBER_NUMBER_OF_POSTS >= 1500) {
  ================================================================
 */
 
-$_DB_Query_Main_Member_Update_Rank 						= $DB->query("UPDATE {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_members SET member_rank='$_MEMBER_RANK_UPDATE_DIGIT' WHERE member_username='$_GLOBAL_COOKIE_MEMBER_USERNAME'");
+$_DB_Query_Main_Member_Update_Rank 						= $DB->query("UPDATE {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_members SET member_rank_level='$_MEMBER_RANK_UPDATE_DIGIT' WHERE member_username='$_GLOBAL_COOKIE_MEMBER_USERNAME'");
 
 /*
  ================================================================
@@ -1476,7 +1510,7 @@ if ($_GLOBAL_SYSTEM_GZIP_STATUS >= 1) {
  ================================================================
  +
  +
- + Hyper-Text-Markup-Language Page Generation->Start
+ + Hyper-Text-Markup-Language Page Generation=>Start
  +
  +
  ================================================================
@@ -1557,7 +1591,7 @@ echo ($_GLOBAL_THEME_LAYOUT_1);
  ================================================================
  +
  +
- + Administration Block->Administration Panel
+ + Administration :: Administration Panel
  +
  +
  ================================================================
@@ -1565,19 +1599,19 @@ echo ($_GLOBAL_THEME_LAYOUT_1);
 
 if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null && $_GLOBAL_MEMBER_ACCESS_LEVEL >= 2) {
 
-	echo ($_THIS_THEMES_APPLICATION_BLOCKS_1);
+	echo ($_THIS_THEMES_APPLICATION_PANELS_1);
 
-		include_once "./Applications/Block/Administration_Panel.blk";
+		include_once "./Applications/Panel/Administration.panel";
 
-	echo ($_THIS_THEMES_APPLICATION_BLOCKS_2);
+	echo ($_THIS_THEMES_APPLICATION_PANELS_2);
 
-} // [ + ] If Administrator Credentials Exist, Show Administration Panel Block
+} // [ + ] If Administrator Credentials Exist, Show Administration Application Panel
 
 /*
  ================================================================
  +
  +
- + @ Block Application Modules, Aligned->Left
+ + @ Panel Application Modules, Aligned :: Left
  +
  +
  ================================================================
@@ -1586,34 +1620,34 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null &
 /*
  ================================================================
  +
- + List Block Application Modules, Aligned->Left
+ + List Panel Application Modules, Aligned :: Left
  +
  ================================================================
 */
 
-$_DB_Query_Main_Blocks_Aligned_Left 						= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_blocks WHERE block_alignment='0' AND block_file_status='1' ORDER BY block_row ASC");
+$_DB_Query_Main_Panels_Aligned_Left 						= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_panels WHERE panel_alignment='0' AND panel_file_status='1' ORDER BY panel_row ASC");
 
-while ($_DB_Query_Main_Blocks_Aligned_Left_Fetch_Array = $DB->fetch_array($_DB_Query_Main_Blocks_Aligned_Left)) {
+while ($_DB_Query_Main_Panels_Aligned_Left_Fetch_Array = $DB->fetch_array($_DB_Query_Main_Panels_Aligned_Left)) {
 
-$_MAIN_BLOCK_ALIGNED_LEFT_FILE_NAME						= $_DB_Query_Main_Blocks_Aligned_Left_Fetch_Array['block_file_name'];
-$_MAIN_BLOCK_ALIGNED_LEFT_TITLE							= $_DB_Query_Main_Blocks_Aligned_Left_Fetch_Array['block_title'];
+$_MAIN_PANEL_ALIGNED_LEFT_FILE_NAME						= $_DB_Query_Main_Panels_Aligned_Left_Fetch_Array['panel_file_name'];
+$_MAIN_PANEL_ALIGNED_LEFT_TITLE							= $_DB_Query_Main_Panels_Aligned_Left_Fetch_Array['panel_title'];
 
-echo ($_THIS_THEMES_APPLICATION_BLOCKS_1);
-echo ($_MAIN_BLOCK_ALIGNED_LEFT_TITLE);
+echo ($_THIS_THEMES_APPLICATION_PANELS_1);
+echo ($_MAIN_PANEL_ALIGNED_LEFT_TITLE);
 
-include_once "./Applications/Block/$_MAIN_BLOCK_ALIGNED_LEFT_FILE_NAME.blk";
+include_once "./Applications/Panel/$_MAIN_PANEL_ALIGNED_LEFT_FILE_NAME.panel";
 
-echo ($_THIS_THEMES_APPLICATION_BLOCKS_2);
+echo ($_THIS_THEMES_APPLICATION_PANELS_2);
 
-} // [ + ] WHILE LISTING BLOCKS ALIGNED LEFT
+} // [ + ] WHILE LISTING PANEL ALIGNED LEFT
 
 /*
  ================================================================
- + Kill Database Server Query: Fetch Block Application Modules, Aligned->Left
+ + Kill Database Server Query: Fetch Panel Application Modules, Aligned=>Left
  ================================================================
 */
 
-$DB->free($_DB_Query_Main_Blocks_Aligned_Left);
+$DB->free($_DB_Query_Main_Panels_Aligned_Left);
 
 /*
  ================================================================
@@ -1653,7 +1687,7 @@ while (($_READ_APPLICATIONS_ADMINISTRATION_DIRECTORY = readdir($_OPEN_APPLICATIO
 /*
  ================================================================
  +
- + Internal Security->Stop Remote-File-Inclusion and Local-File-Inclusion Exploits
+ + Internal Security :: Stop Remote-File-Inclusion and Local-File-Inclusion Exploits
  +
  ================================================================
 */
@@ -1765,7 +1799,7 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null) 
 
 	echo ($_Message_Cerberus_APPLICATION_ACCESS_RESTRICTED_MEMBER);
 
-} // [ + ] APPLICATION_PERMISSION_MEMBER
+} // [ + ] APPLICATION_PERMISSION_MEMBER$_DB_Query_Main_Panels_Aligned_
 
 } // [ + ] IF_APPLICATION_PERMISSION
 
@@ -1880,7 +1914,7 @@ echo ($_GLOBAL_THEME_LAYOUT_3);
  ================================================================
  +
  +
- + @ Block Application Modules, Aligned->Right
+ + @ Panel Application Modules, Aligned :: Right
  +
  +
  ================================================================
@@ -1889,35 +1923,35 @@ echo ($_GLOBAL_THEME_LAYOUT_3);
 /*
  ================================================================
  +
- + List Block Application Modules, Aligned->Right
+ + List Panel Application Modules, Aligned :: Right
  +
  ================================================================
 */
 
-$_DB_Query_Main_Blocks_Aligned_Right 						= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_blocks WHERE block_alignment='1' AND block_file_status='1' ORDER BY block_row ASC");
+$_DB_Query_Main_Panels_Aligned_Right 						= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_panels WHERE panel_alignment='1' AND panel_file_status='1' ORDER BY panel_row ASC");
 
-while ($_DB_Query_Main_Blocks_Aligned_Right_Fetch_Array = $DB->fetch_array($_DB_Query_Main_Blocks_Aligned_Right)) {
+while ($_DB_Query_Main_Panels_Aligned_Right_Fetch_Array = $DB->fetch_array($_DB_Query_Main_Panels_Aligned_Right)) {
 
-$_MAIN_BLOCK_ALIGNED_RIGHT_FILE_NAME						= $_DB_Query_Main_Blocks_Aligned_Right_Fetch_Array['block_file_name'];
-$_MAIN_BLOCK_ALIGNED_RIGHT_TITLE						= $_DB_Query_Main_Blocks_Aligned_Right_Fetch_Array['block_title'];
+$_MAIN_PANEL_ALIGNED_RIGHT_FILE_NAME						= $_DB_Query_Main_Panels_Aligned_Right_Fetch_Array['panel_file_name'];
+$_MAIN_PANEL_ALIGNED_RIGHT_TITLE						= $_DB_Query_Main_Panels_Aligned_Right_Fetch_Array['panel_title'];
 
-echo ($_THIS_THEMES_APPLICATION_BLOCKS_1);
+echo ($_THIS_THEMES_APPLICATION_PANELS_1);
 
-echo ($_MAIN_BLOCK_ALIGNED_RIGHT_TITLE);
+echo ($_MAIN_PANEL_ALIGNED_RIGHT_TITLE);
 
-include_once "./Applications/Block/$_MAIN_BLOCK_ALIGNED_RIGHT_FILE_NAME.blk";
+include_once "./Applications/Panel/$_MAIN_PANEL_ALIGNED_RIGHT_FILE_NAME.panel";
 
-echo ($_THIS_THEMES_APPLICATION_BLOCKS_2);
+echo ($_THIS_THEMES_APPLICATION_PANELS_2);
 
-} // [ + ] WHILE Listing Blocks Aligned Right
+} // [ + ] WHILE Listing Panels Aligned Right
 
 /*
  ================================================================
- + Kill Database Server Query: Fetch Block Application Modules, Aligned->Right
+ + Kill Database Server Query: Fetch Panel Application Modules, Aligned :: Right
  ================================================================
 */
 
-$DB->free($_DB_Query_Main_Blocks_Aligned_Right);
+$DB->free($_DB_Query_Main_Panels_Aligned_Right);
 
 /*
  ================================================================
@@ -1957,7 +1991,7 @@ $_MAIN_PAGE_GENERATION_TOTAL_TIME						= round($_MAIN_PAGE_GENERATION_TOTAL_TIME
  ================================================================
  +
  +
- + Hyper-Text-Markup-Language Document->End, Output
+ + Hyper-Text-Markup-Language Document=>End, Output
  +
  +
  ================================================================
@@ -1971,7 +2005,7 @@ echo ("
  ================================================================
  +
  +
- + Internal Resources->Close User and Registered Member Connections
+ + Internal Resources :: Close User and Registered Member Connections
  +
  +
  ================================================================
@@ -2009,7 +2043,7 @@ $DB->free($_DB_Query_Main_Banned_Status_Security_Check);
  ================================================================
  +
  +
- + Internal Resources->Closing All Database Server Connections
+ + @ Internal Resources :: Force Close All Database Server Connections
  +
  +
  ================================================================
@@ -2065,11 +2099,35 @@ echo ("
  ================================================================
  +
  +
- + Flushing, Destroying All Initialized Objects and Variables
+ + @ Internal Resources :: Flushing and Destroying Initializations
  +
  +
  ================================================================
 */
 
+/*
+ ================================================================
+ +
+ +
+ + Flushing and Destroying All Object Initializations
+ +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Flush All Objects
+ ================================================================
+*/
+
 ob_end_flush();
+
+/*
+ ================================================================
+ + Clean All Objects
+ ================================================================
+*/
+
+ob_end_clean();
 ?>
