@@ -98,7 +98,7 @@ $_GLOBAL_INSTALLATION_FILE							= "Install.php";
 
 /*
  ================================================================
- + If Installation File Exists, Redirect To It
+ + IF: Installation File Exists, Redirect To It
  ================================================================
 */
 
@@ -128,7 +128,7 @@ if (file_exists($_GLOBAL_INSTALLATION_FILE)) {
 
 /*
  ================================================================
- + If Global System Configuration File Exists, Include It
+ + IF: Global System Configuration File Exists, Include It
  ================================================================
 */
 
@@ -374,7 +374,7 @@ $_GLOBAL_COOKIE_MEMBER_LANGUAGE							= $_COOKIE['cerberus_member_language'];
 
 /*
  ================================================================
- + If UserName and User Password Are Not Null, Fetch Credentials
+ + IF: UserName and User Password Are Not Null, Fetch Credentials
  ================================================================
 */
 
@@ -519,7 +519,7 @@ $_GLOBAL_MEMBER_IP_ADDRESS_LOG								= $_DB_Query_Member_Credentials_Fetch_Arra
 
 /*
  ================================================================
- + If Member Banned Status Is Active, Redirect To Banned Message ( 1 )
+ + IF: Member Banned Status Is Active, Redirect To Banned Message ( 1 )
  ================================================================
 */
 
@@ -726,7 +726,7 @@ if (password_verify($_POST_LOGIN_PASSWORD_CLEAR, $DB_Query_Check_Login_Member_Pa
 
 /*
  ================================================================
- + If Posted Data Is Incorrect Information, Redirect To No Known Member
+ + IF: Posted Data Is Incorrect Information, Redirect To No Known Member
  ================================================================
 */
 
@@ -847,7 +847,7 @@ $_DB_Query_Main_Cookie_Security_Check 						= $DB->query("SELECT * FROM {$_ACCES
 
 /*
  ================================================================
- + If Cookies Stored In Browser Match Database Table Entry Exactly
+ + IF: Cookies Stored In Browser Match Database Table Entry Exactly
  ================================================================
 */
 
@@ -897,7 +897,7 @@ $_USERNAME_DIRECTORY								= "./Member/$_GLOBAL_COOKIE_MEMBER_USERNAME/index.ht
 
 /*
  ================================================================
- + If UserName Directory and File Actually Exists
+ + IF: UserName Directory and File Actually Exists
  ================================================================
 */
 
@@ -931,7 +931,7 @@ $_DB_Query_Main_Banned_Status_Security_Check 					= $DB->query("SELECT * FROM {$
 
 /*
  ================================================================
- + If Current I.P. Address Matches Banned I.P. Addresses List
+ + IF: Current I.P. Address Matches Banned I.P. Addresses List
  ================================================================
 */
 
@@ -985,7 +985,7 @@ if ($_GLOBAL_COOKIE_MEMBER_LANGUAGE == "") {
 
 $_GLOBAL_SYSTEM_LANGUAGE_DIRECTORY							= $_GLOBAL_COOKIE_MEMBER_LANGUAGE;
 
-} // [ + ] If Language Cookie Is Null, Set System Configured Language
+} // [ + ] IF: Language Cookie Is Null, Set System Configured Language
 
 /*
  ================================================================
@@ -1009,7 +1009,7 @@ if (strlen($_GLOBAL_COOKIE_MEMBER_LANGUAGE) > "15") {
 
 	header("location: ?InternalApplication=Logout");
 
-} // [ + ] If Language Cookie Data Is Greater Than 15 Characters, Logout
+} // [ + ] IF: Language Cookie Data Is Greater Than 15 Characters, Logout
 
 /*
  ================================================================
@@ -1057,7 +1057,7 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null) 
 
 /*
  ================================================================
- + If Logged-In Member Theme Is Null, Set System Theme
+ + IF: Logged-In Member Theme Is Null, Set System Theme
  ================================================================
 */
 
@@ -1125,7 +1125,7 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null) 
 
 /*
  ================================================================
- + If Member Credentials Exist And Are Valid, Set Last Referrer
+ + IF: Member Credentials Exist And Are Valid, Set Last Referrer
  ================================================================
 */
 
@@ -1133,7 +1133,7 @@ $_DB_Query_Set_Member_Last_Post 						= $DB->query("UPDATE {$_ACCESS_DATABASE_SE
 
 /*
  ================================================================
- + If Database Server Query: Update Was Successful
+ + IF: Database Server Query: Update Was Successful
  ================================================================
 */
 
@@ -1145,7 +1145,7 @@ if ($_DB_Query_Set_Member_Last_Post) {
 
 	echo ($_Message_Cerberus_ERROR_SQL_MEMBER_LAST_POST);
 
-} // [ + ] If Update Member Entry
+} // [ + ] IF: Update Member Entry
 
 /*
  ================================================================
@@ -1167,7 +1167,7 @@ $DB->free($_DB_Query_Set_Member_Last_Post);
 
 /*
  ================================================================
- + If Credentials Exist And Are Valid
+ + IF: Credentials Exist And Are Valid
  ================================================================
 */
 
@@ -1181,7 +1181,7 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null) 
 
 /*
  ================================================================
- + If Number of Posts Are Less Than 50
+ + IF: Number of Posts Are Less Than 50
  ================================================================
 */
 
@@ -1193,7 +1193,7 @@ if ($_GLOBAL_MEMBER_NUMBER_OF_POSTS <= 50) {
 
 /*
  ================================================================
- + If Number of Posts Are Greater Than 100
+ + IF: Number of Posts Are Greater Than 100
  ================================================================
 */
 
@@ -1205,7 +1205,7 @@ if ($_GLOBAL_MEMBER_NUMBER_OF_POSTS >= 100) {
 
 /*
  ================================================================
- + If Number of Posts Are Greater Than 500
+ + IF: Number of Posts Are Greater Than 500
  ================================================================
 */
 
@@ -1217,7 +1217,7 @@ if ($_GLOBAL_MEMBER_NUMBER_OF_POSTS >= 500) {
 
 /*
  ================================================================
- + If Number of Posts Are Greater Than 1000
+ + IF: Number of Posts Are Greater Than 1000
  ================================================================
 */
 
@@ -1229,7 +1229,7 @@ if ($_GLOBAL_MEMBER_NUMBER_OF_POSTS >= 1000) {
 
 /*
  ================================================================
- + If Number of Posts Are Greater Than 1500
+ + IF: Number of Posts Are Greater Than 1500
  ================================================================
 */
 
@@ -1257,7 +1257,7 @@ $_DB_Query_Main_Member_Update_Rank 						= $DB->query("UPDATE {$_ACCESS_DATABASE
 
 /*
  ================================================================
- + If Database Server Query Is Successful
+ + IF: Database Server Query Is Successful
  ================================================================
 */
 
@@ -1318,31 +1318,31 @@ if ($_GLOBAL_MEMBER_RANK == 1) {
 
 	$_GLOBAL_MEMBER_RANK_DISPLAY = $_MAIN_MEMBER_RANK_1;
 
-} // [ + ] If Member Rank Is 1
+} // [ + ] IF: Member Rank Is 1
 
 if ($_GLOBAL_MEMBER_RANK == 2) {
 
 	$_GLOBAL_MEMBER_RANK_DISPLAY = $_MAIN_MEMBER_RANK_2;
 
-} // [ + ] If Member Rank Is 2
+} // [ + ] IF: Member Rank Is 2
 
 if ($_GLOBAL_MEMBER_RANK == 3) {
 
 	$_GLOBAL_MEMBER_RANK_DISPLAY = $_MAIN_MEMBER_RANK_3;
 
-} // [ + ] If Member Rank Is 3
+} // [ + ] IF: Member Rank Is 3
 
 if ($_GLOBAL_MEMBER_RANK == 4) {
 
 	$_GLOBAL_MEMBER_RANK_DISPLAY = $_MAIN_MEMBER_RANK_4;
 
-} // [ + ] If Member Rank Is 4
+} // [ + ] IF: Member Rank Is 4
 
 if ($_GLOBAL_MEMBER_RANK == 5) {
 
 	$_GLOBAL_MEMBER_RANK_DISPLAY = $_MAIN_MEMBER_RANK_5;
 
-} // [ + ] If Member Rank Is 5
+} // [ + ] IF: Member Rank Is 5
 
 /*
  ================================================================
@@ -1372,7 +1372,7 @@ if ($_GLOBAL_COOKIE_MEMBER_LANGUAGE != null) {
 
 $_GLOBAL_SYSTEM_LANGUAGE_DIRECTORY							= $_GLOBAL_COOKIE_MEMBER_LANGUAGE;
 
-} // [ + ] If Language Cookie Is Null, Set System Configured Language
+} // [ + ] IF: Language Cookie Is Null, Set System Configured Language
 
 /*
  ================================================================
@@ -1470,7 +1470,7 @@ include_once "./System/Plug-Ins/Text-Editor/$_GLOBAL_SYSTEM_TEXT_EDITOR_DIRECTOR
 
 /*
  ================================================================
- + If Offline-Mode Is On, ( 1 ) Redirect To Offline-Mode Status
+ + IF: Offline-Mode Is On, ( 1 ) Redirect To Offline-Mode Status
  ================================================================
 */
 
@@ -1484,7 +1484,7 @@ if ($_GLOBAL_MEMBER_ACCESS_LEVEL >= 2) {
 
 	header("location: ./Theme/$_GLOBAL_SYSTEM_THEME_DIRECTORY/HTML/Offline.html");
 
-} // [ + ] If Offline Status Is On, Redirect Non-Administrator To Offline Status Web Page
+} // [ + ] IF: Offline Status Is On, Redirect Non-Administrator To Offline Status Web Page
 
 } // [ + ] OFFLINE MODE IS OFF
 
@@ -1500,7 +1500,7 @@ if ($_GLOBAL_MEMBER_ACCESS_LEVEL >= 2) {
 
 /*
  ================================================================
- + If Page Data Compression Is Set To On, Initialize Page Compression
+ + IF: Page Data Compression Is Set To On, Initialize Page Compression
  ================================================================
 */
 
@@ -1615,7 +1615,7 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null &
 
 	echo ($_THIS_THEMES_APPLICATION_PANELS_2);
 
-} // [ + ] If Administrator Credentials Exist, Show Administration Application Panel
+} // [ + ] IF: Administrator Credentials Exist, Show Administration Application Panel
 
 /*
  ================================================================
@@ -1733,13 +1733,13 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null &
 
 	echo ($_Message_Cerberus_APPLICATION_ACCESS_RESTRICTED_ADMINISTRATOR);
 
-} // [ + ] IF_ACCESS_LEVEL
+} // [ + ] IF: ACCESS_LEVEL IS >= 2
 
-} // [ + ] IF_INCLUDE
+} // [ + ] IF: INCLUDE Administration Application
 
-} // [ + ] IF_NOT_DIRECTORY
+} // [ + ] IF_NOT_ADMINISTRATION_DIRECTORY
 
-} // [ + ] WHILE_DIRECTORY
+} // [ + ] WHILE_READING_ADMINISTRATION_DIRECTORY
 
 /*
  ================================================================
@@ -1777,7 +1777,7 @@ $_MAIN_APPLICATION_FILE_STATUS							= $_DB_Query_Main_Select_Applications_Fetch
 
 /*
  ================================================================
- + IF Application Module Permission Is Open
+ + IF: Application Module Permission Is Open
  ================================================================
 */
 
@@ -1791,11 +1791,11 @@ if ($_MAIN_APPLICATION_FILE_PERMISSION <= "0") {
 
 	include_once "./Applications/Member/$_MAIN_APPLICATION_FILE_NAME";
 
-} // [ + ] IF_APPLICATION_PERMISSION
+} // [ + ] IF: APPLICATION_PERMISSION IS OPEN
 
 /*
  ================================================================
- + IF Application Module Permission Is Member-Level
+ + IF: Application Module Permission Is Member-Level
  ================================================================
 */
 
@@ -1809,13 +1809,13 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null) 
 
 	echo ($_Message_Cerberus_APPLICATION_ACCESS_RESTRICTED_MEMBER);
 
-} // [ + ] APPLICATION_PERMISSION_MEMBER$_DB_Query_Main_Panels_Aligned_
+} // [ + ] APPLICATION_PERMISSION_MEMBER
 
-} // [ + ] IF_APPLICATION_PERMISSION
+} // [ + ] IF: APPLICATION_PERMISSION IS Registered Member-Level
 
 /*
  ================================================================
- + IF Application Module Permission Is Administrator-Level
+ + IF: Application Module Permission Is Administrator-Level
  ================================================================
 */
 
@@ -1829,25 +1829,25 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null &
 
 	echo ($_Message_Cerberus_APPLICATION_ACCESS_RESTRICTED_ADMINISTRATOR);
 
-} // [ + ] APPLICATION_PERMISSION_ADMINISTRATOR
+} // [ + ] Include Administration Application Module
 
-} // [ + ] IF_APPLICATION_PERMISSION
+} // [ + ] IF: Application Permission Is 2, Administrator
 
 } else {
 
 	echo ($_Message_Cerberus_APPLICATION_DEACTIVATED);
 
-} // [ + ] IF_APPLICATION_STATUS
+} // [ + ] IF: Application Module Status Is: Deactivated
 
 } else {
 
 	echo ($_Message_Cerberus_APPLICATION_NOT_FOUND);
 
-} // [ + ] IF_FILE_EXISTS
+} // [ + ] IF: File Exists
 
-} // [ + ] APPLICATION_INCLUDE
+} // [ + ] Application Module Include
 
-} // [ + ] WHILE_ARRAY
+} // [ + ] WHILE Reading Application Modules Directory
 
 /*
  ================================================================
@@ -2063,13 +2063,13 @@ $DB->free($_DB_Query_Main_Banned_Status_Security_Check);
 
 		echo ("Cerberus: Error, I Cannot Connect To The S.Q.L. Database Server Name: $_ACCESS_DATABASE_SERVER_DATABASE_NAME. Please Check The Database Server Access Credentials File.");
 
-} // [ + ] IF Connection Database
+} // [ + ] IF: Connection To Database Server Name
 
 } else {
 
 		echo ("Cerberus: Error, I Cannot Connect To The S.Q.L. Database Server Host-Name: $_ACCESS_DATABASE_SERVER_HOSTNAME.  Please Check The Database Server Access Credentials File.");
 
-} // [ + ] IF Connection Database Server
+} // [ + ] IF: Connection To Database Server Hostname
 
 /*
  ================================================================
@@ -2085,13 +2085,13 @@ if ($DB->close($_CERBERUS_DATABASE_SERVER_CONNECT)) {
 
 			echo ("Cerberus: Error, I Cannot Close The Database Server Connection For Internet Protocol Address: <A HREF=\"http://WhoIs.sc/$_GLOBAL_REMOTE_SERVER_ADDRESS\" TITLE=\":: View Detailed Who-Is Information For Internet Protocol Address: $_GLOBAL_REMOTE_SERVER_ADDRESS ::\" TARGET=\"_NEW\">$_GLOBAL_REMOTE_SERVER_ADDRESS</A>&nbsp;|&nbsp;");
 
-} // [ + ] IF Close Database Connection
+} // [ + ] IF: Close Database Connection
 
 } else {
 
 			echo ("Cerberus: Error, System Configuration File Missing: $_GLOBAL_CONFIGURATION_FILE | <A HREF=\"./Maintenance/Diagnostics/Diagnose.php\" TITLE=\":: Cerberus Content Management System :: Diagnostics Application ::\" TARGET=\"_NEW\">Please Click Here For Extensive Diagnostics</A>.");
 
-} // [ + ] FILE_EXISTS: Configuration Script
+} // [ + ] IF: File Exists: System Configuration File
 
 echo ("
 			This Web Page Will Close After One Hour Of Inactivity.
