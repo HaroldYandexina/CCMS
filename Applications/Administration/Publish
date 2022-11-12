@@ -1,0 +1,421 @@
+<?php
+/*
+ =============================================================================================
+ + Cerberus Content Management System.
+ + ---
+ + - Author : Gary Christopher Johnson
+ + - E-Mail : TinkeSoftware@Protonmail.com
+ + - Company: Tinke Software
+ + - Notes  : View this file in a non-formatting text editor for correct indentation display
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Cerberus->Applications->Administration->Publish
+ + - File Version:  0.6 - Wednesday, March 1st of 2023.
+ + ---
+ + -------------------------------------------------------------------------------
+ + --()()--()()()--()()()--()()()---()()()--()()()--()--()------()()()------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()()()--()()()--()()()---()()()--()()()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------/-\-
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------|4|-  ~ Wynn ~
+ + --()()--()()()--()--()--()()()---()()()--()--()--()()()--()()()------------\-/- Build: 0.8
+ ===========================================================================================
+*/
+
+/*
+ ================================================================
+ +
+ +
+ + Article and News Management
+ +
+ +
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_DB_Query_SELECT_SUBMISSIONS			= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_news_submissions");
+
+while ($_Application_Module_Administration_Publish_DB_Query_SELECT_SUBMISSIONS_Fetch_Array = $DB->fetch_array($_Application_Module_Administration_Publish_DB_Query_SELECT_SUBMISSIONS)) {
+
+/*
+ ================================================================
+ +
+ + List Submission Entries
+ +
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_LIST_SUBMISSION_ID				= $_Application_Module_Administration_Publish_DB_Query_SELECT_SUBMISSIONS_Fetch_Array['id'];
+$_Application_Module_Administration_Publish_LIST_SUBMISSION_AUTHOR			= $_Application_Module_Administration_Publish_DB_Query_SELECT_SUBMISSIONS_Fetch_Array['submission_author'];
+$_Application_Module_Administration_Publish_LIST_SUBMISSION_DATA			= $_Application_Module_Administration_Publish_DB_Query_SELECT_SUBMISSIONS_Fetch_Array['submission_data'];
+$_Application_Module_Administration_Publish_LIST_SUBMISSION_TIME			= $_Application_Module_Administration_Publish_DB_Query_SELECT_SUBMISSIONS_Fetch_Array['submission_time'];
+
+/*
+ ================================================================
+ +
+ + Publish Submission Form
+ +
+ ================================================================
+*/
+
+if ($_GET["SubmissionID"] == "$_Application_Module_Administration_Publish_LIST_SUBMISSION_ID") {
+
+echo ("
+													<CENTER><B>Publish Submission ( ID: $_Application_Module_Administration_Publish_LIST_SUBMISSION_ID )</B></CENTER><HR>
+														<FORM ACTION=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Publish\" METHOD=\"post\">
+															News Author:<BR>
+																<INPUT TYPE=\"text\" NAME=\"Module_Publish_Publish_News_Author\" VALUE=\"$_GLOBAL_USERNAME\" MAXLENGTH=\"50\"><BR>
+															Currently Feeling:<BR>
+																<INPUT TYPE=\"text\" NAME=\"Module_Publish_Publish_News_Mood\" MAXLENGTH=\"250\"><BR>
+															Current Music:<BR>
+																<INPUT TYPE=\"text\" NAME=\"Module_Publish_Publish_News_Music\" MAXLENGTH=\"250\"><BR>
+															News Title:<BR>
+																<INPUT TYPE=\"text\" NAME=\"Module_Publish_Publish_News_Title\" MAXLENGTH=\"50\"><BR>
+															News Text:<BR>
+																<TEXTAREA ROWS=\"15\" COLS=\"75\" NAME=\"Module_Publish_Publish_News_Data\" ID=\"WYSIWYG\">$_Application_Module_Administration_Publish_LIST_SUBMISSION_DATA [br][br] ---Submitted By: $_Application_Module_Administration_Publish_LIST_SUBMISSION_AUTHOR -- On: $_Application_Module_Administration_Publish_LIST_SUBMISSION_TIME---</TEXTAREA><BR>
+															<INPUT TYPE=\"submit\" VALUE=\"Publish Submission\">
+														</FORM><BR><BR><HR>
+");
+
+} // [ + ] IF_SUBMISSIONID
+
+} // [ + ] WHILE_SUBMISSION
+
+/*
+ ================================================================
+ + Kill SQL Database Server Query: Select All Submissions
+ ================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Publish_DB_Query_SELECT_SUBMISSIONS);
+
+/*
+ ================================================================
+ +
+ +
+ + Publish News
+ +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + Publish News Form Variables
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Publish News Post Variables
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_AUTHOR			= $_POST['Module_Publish_Publish_News_Author'];
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_DATA			= $_POST['Module_Publish_Publish_News_Data'];
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_MOOD			= $_POST['Module_Publish_Publish_News_Mood'];
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_MUSIC			= $_POST['Module_Publish_Publish_News_Music'];
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_TITLE			= $_POST['Module_Publish_Publish_News_Title'];
+
+/*
+ ================================================================
+ + Character Replace
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_AUTHOR			= preg_replace("/'/","&#39;", $_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_AUTHOR);
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_MOOD			= preg_replace("/'/","&#39;", $_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_MOOD);
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_MUSIC			= preg_replace("/'/","&#39;", $_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_MUSIC);
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_TITLE			= preg_replace("/'/","&#39;", $_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_TITLE);
+
+/*
+ ================================================================
+ + Safe-HTML Code && Smiley Code Replace
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_DATA			= str_replace($_GLOBAL_SAFEHTML_CODE, $_GLOBAL_SAFEHTML_CODE_REPLACE, $_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_DATA);
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_DATA			= str_replace($_GLOBAL_SAFEHTML_SMILEYS, $_GLOBAL_SAFEHTML_SMILEYS_REPLACE, $_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_DATA);
+
+/*
+ ================================================================
+ +
+ + Publish News Form
+ +
+ ================================================================
+*/
+
+if (!$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_AUTHOR) {
+
+echo ("
+													<CENTER><B>Publish News</B></CENTER><HR>
+														<FORM ACTION=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Publish\" METHOD=\"post\">
+															News Author:<BR>
+																<INPUT TYPE=\"text\" NAME=\"Module_Publish_Publish_News_Author\" VALUE=\"$_GLOBAL_USERNAME\" MAXLENGTH=\"50\"><BR>
+															What Is Your Current Mood ?<BR>
+																<INPUT TYPE=\"text\" NAME=\"Module_Publish_Publish_News_Mood\" MAXLENGTH=\"250\"><BR>
+															What Music Are You Currently Listening To ?<BR>
+																<INPUT TYPE=\"text\" NAME=\"Module_Publish_Publish_News_Music\" MAXLENGTH=\"250\"><BR>
+															News Entry Title:<BR>
+																<INPUT TYPE=\"text\" NAME=\"Module_Publish_Publish_News_Title\" MAXLENGTH=\"50\"><BR>
+															News Entry Text:<BR>
+																<TEXTAREA ROWS=\"15\" COLS=\"75\" NAME=\"Module_Publish_Publish_News_Data\" ID=\"WYSIWYG\"></TEXTAREA><BR>
+															<INPUT TYPE=\"submit\" VALUE=\"Publish News Entry\">
+														</FORM><BR><BR>
+");
+
+} else {
+
+/*
+ ================================================================
+ + Publish News SQL Query
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_DB_Query_PUBLISH_NEWS			= $DB->query("INSERT INTO {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_news(news_author,news_avatar,news_data,news_mood,news_music,news_rss_rfc,news_time,news_title)VALUES('$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_AUTHOR','$_GLOBAL_MEMBER_AVATAR','$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_DATA','$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_MOOD','$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_MUSIC','$_GLOBAL_DATE_RFC','$_GLOBAL_DATE','$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_TITLE')");
+
+if ($_Application_Module_Administration_Publish_DB_Query_PUBLISH_NEWS) {
+													echo ($_Application_Module_Message_Administration_Publish_PUBLISH_NEWS_SUCCESSFUL);
+
+/*
+ ================================================================
+ + Create News File
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_SPECIFY_NEWS_FILE				= "System/Printable/News/$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_TITLE.html";
+$_Application_Module_Administration_Publish_SPECIFY_NEWS_DATA				= "
+Title: $_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_TITLE<HR>
+$_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_DATA
+<HR>
+Written by: $_Application_Module_Administration_Publish_POST_PUBLISH_NEWS_AUTHOR On: $_GLOBAL_DATE<BR>
+[ <A HREF=\"javascript:print();\">Print Page</A> ]";
+
+$_Application_Module_Administration_Publish_SPECIFY_NEWS_DATA				= stripslashes($_Application_Module_Administration_Publish_SPECIFY_NEWS_DATA);
+$_Application_Module_Administration_Publish_OPEN_NEWS_FILE				= fopen($_Application_Module_Administration_Publish_SPECIFY_NEWS_FILE, "w");
+
+fwrite($_Application_Module_Administration_Publish_OPEN_NEWS_FILE, "$_Application_Module_Administration_Publish_SPECIFY_NEWS_DATA");
+
+/*
+ ================================================================
+ + Close News File
+ ================================================================
+*/
+
+fclose($_Application_Module_Administration_Publish_OPEN_NEWS_FILE);
+
+} else {
+													echo ($_Message_ERROR_ACTION_UNIVERSAL);
+} // [ + ] IF_PUBLISH_QUERY
+
+/*
+ ================================================================
+ + Kill SQL Database Server Query: Publish News Article Entry
+ ================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Publish_DB_Query_PUBLISH_NEWS);
+
+} // [ + ] IF_NULL
+
+/*
+ ================================================================
+ +
+ +
+ + Publish Article
+ +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + Publish Article Form Variables
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Publish Article Post Variables
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_AUTHOR			= $_POST['Module_Publish_Publish_Article_Author'];
+$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_TITLE			= $_POST['Module_Publish_Publish_Article_Title'];
+$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_DATA			= $_POST['Module_Publish_Publish_Article_Data'];
+
+/*
+ ================================================================
+ + Character Replace
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_AUTHOR			= preg_replace("/'/","&#39;", $_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_AUTHOR);
+$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_TITLE			= preg_replace("/'/","&#39;", $_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_TITLE);
+$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_DATA			= str_replace($_GLOBAL_SAFEHTML_CODE, $_GLOBAL_SAFEHTML_CODE_REPLACE, $_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_DATA);
+$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_DATA			= str_replace($_GLOBAL_SAFEHTML_SMILEYS, $_GLOBAL_SAFEHTML_SMILEYS_REPLACE, $_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_DATA);
+
+/*
+ ================================================================
+ +
+ + Publish Article Form
+ +
+ ================================================================
+*/
+
+if ((!$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_AUTHOR) || (!$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_TITLE) || (!$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_DATA)) {
+
+echo ("
+													<HR><CENTER><B>Publish Article</B></CENTER><HR>
+														<FORM ACTION=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Publish\" METHOD=\"post\">
+															Article Author:<BR>
+																<INPUT TYPE=\"text\" NAME=\"Module_Publish_Publish_Article_Author\" VALUE=\"$_GLOBAL_USERNAME\" MAXLENGTH=\"50\"><BR>
+															Article Title:<BR>
+																<INPUT TYPE=\"text\" NAME=\"Module_Publish_Publish_Article_Title\" MAXLENGTH=\"50\"><BR>
+															Article Text:<BR>
+																<TEXTAREA ROWS=\"15\" COLS=\"75\" NAME=\"Module_Publish_Publish_Article_Data\"></TEXTAREA><BR>
+															<INPUT TYPE=\"submit\" VALUE=\"Publish Article Entry\">
+														</FORM><BR><BR>
+");
+
+} else {
+
+/*
+ ================================================================
+ + Publish Article SQL Query
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_DB_Query_PUBLISH_ARTICLE			= $DB->query("INSERT INTO {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_articles(article_author,article_data,article_time,article_title)VALUES('$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_AUTHOR','$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_DATA','$_GLOBAL_DATE','$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_TITLE')");
+
+if ($_Application_Module_Administration_Publish_DB_Query_PUBLISH_ARTICLE) {
+													echo ($_Application_Module_Message_Administration_Publish_PUBLISH_ARTICLE_SUCCESSFUL);
+
+/*
+ ================================================================
+ + Create Article File
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_SPECIFY_ARTICLE_FILE 			= "System/Printable/Article/$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_TITLE.html";
+$_Application_Module_Administration_Publish_SPECIFY_ARTICLE_DATA = "
+Title: $_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_TITLE<HR>
+$_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_DATA
+<HR>
+Written by: $_Application_Module_Administration_Publish_POST_PUBLISH_ARTICLE_AUTHOR On: $_GLOBAL_DATE<BR>
+[ <A HREF=\"javascript:print();\">Print Page</A> ]";
+
+$_Application_Module_Administration_Publish_SPECIFY_ARTICLE_DATA			= stripslashes($_Application_Module_Administration_Publish_SPECIFY_ARTICLE_DATA);
+$_Application_Module_Administration_Publish_OPEN_ARTICLE_FILE				= fopen($_Application_Module_Administration_Publish_SPECIFY_ARTICLE_FILE, "w");
+
+fwrite($_Application_Module_Administration_Publish_OPEN_ARTICLE_FILE, "$_Application_Module_Administration_Publish_SPECIFY_ARTICLE_DATA");
+
+/*
+ ================================================================
+ + Close Article File
+ ================================================================
+*/
+
+fclose($_Application_Module_Administration_Publish_OPEN_ARTICLE_FILE);
+
+} else {
+													echo ($_Message_ERROR_ACTION_UNIVERSAL);
+} // [ + ] IF_ARTICLE_QUERY
+
+/*
+ ================================================================
+ + Kill SQL Database Server Query: Publish Article Entry
+ ================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Publish_DB_Query_PUBLISH_ARTICLE);
+
+} // [ + ] IF_NULL
+
+/*
+ ================================================================
+ +
+ +
+ + Send Mass Newsletter
+ +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + Newsletter Form Post Variables
+ +
+ ================================================================
+*/
+
+$_Application_Module_Administration_Publish_POST_NEWSLETTER_TITLE			= $_POST['send_newsletter_title'];
+$_Application_Module_Administration_Publish_POST_NEWSLETTER_MESSAGE			= $_POST['send_newsletter_message'];
+
+/*
+ ================================================================
+ +
+ + Newsletter Form
+ +
+ ================================================================
+*/
+
+if ((!$_Application_Module_Administration_Publish_POST_NEWSLETTER_TITLE) || (!$_Application_Module_Administration_Publish_POST_NEWSLETTER_MESSAGE)) {
+
+echo ("
+													<HR><CENTER><B>Mass Newsletter</B></CENTER><HR>
+														<FORM ACTION=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Publish\" METHOD=\"post\">
+															Message Title:<BR>
+																<INPUT TYPE=\"text\" NAME=\"send_newsletter_title\"><BR>
+															Message:<BR>
+																<TEXTAREA ROWS=\"15\" COLS=\"75\" NAME=\"send_newsletter_message\"></TEXTAREA><BR>
+															<INPUT TYPE=\"submit\" VALUE=\"Send Newsletter\">
+														</FORM><BR><BR>
+");
+
+} else {
+
+$_Application_Module_Administration_Publish_DB_Query_SELECT_MEMBERS 			= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_members WHERE member_newsletter='1'");
+
+while ($_Application_Module_Administration_Publish_DB_Query_SELECT_MEMBERS_Fetch_Array = $DB->fetch_array($_Application_Module_Administration_Publish_DB_Query_SELECT_MEMBERS)) {
+
+$_Application_Module_Administration_Publish_LIST_MEMBER_ELECTRONIC_MAIL_ADDRESS		= $_Application_Module_Administration_Publish_DB_Query_SELECT_MEMBERS_Fetch_Array['member_electronic_mail_address'];
+
+if (mail($_Application_Module_Administration_Publish_LIST_MEMBER_ELECTRONIC_MAIL_ADDRESS,"$_Application_Module_Administration_Publish_POST_NEWSLETTER_TITLE","$_Application_Module_Administration_Publish_POST_NEWSLETTER_MESSAGE")) {
+
+													echo ($_Application_Module_Message_Administration_Publish_MASS_NEWSLETTER_SENT_SUCCESSFULLY);
+
+} else {
+													echo ($_Message_ERROR_ACTION_UNIVERSAL);
+} // [ + ] IF_MAIL
+
+} // [ + ] WHILE_ARRAY
+
+/*
+ ================================================================
+ + Kill SQL Database Server Query: Select All Newsletter Settings From Members
+ ================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Publish_DB_Query_SELECT_MEMBERS);
+
+} // [ + ] IF_NULL
+?>

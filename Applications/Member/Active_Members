@@ -1,0 +1,142 @@
+<?php
+/*
+ =============================================================================================
+ + Cerberus Content Management System.
+ + ---
+ + - Author : Gary Christopher Johnson
+ + - E-Mail : TinkeSoftware@Protonmail.com
+ + - Company: Tinke Software
+ + - Notes  : View this file in a non-formatting text editor for correct indentation display
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Cerberus->Applications->Member->Active_Members
+ + - File Version:  0.6 - Wednesday, March 1st of 2023.
+ + ---
+ + -------------------------------------------------------------------------------
+ + --()()--()()()--()()()--()()()---()()()--()()()--()--()------()()()------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()()()--()()()--()()()---()()()--()()()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------/-\-
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------|4|-  ~ Wynn ~
+ + --()()--()()()--()--()--()()()---()()()--()--()--()()()--()()()------------\-/- Build: 0.8
+ ===========================================================================================
+*/
+
+/*
+ ================================================================
+ +
+ +
+ + Application Module :: Active Members
+ +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Application Module Header
+ ================================================================
+*/
+
+											echo ($_Application_Module_Message_Member_Active_Members_Header);
+
+/*
+ ================================================================
+ +
+ + DB->Retrieve Members Online Flag
+ +
+ ================================================================
+*/
+
+$_Application_Module_Member_Active_Members_DB_Query_SELECT_MEMBERS			= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_members ORDER BY member_username ASC");
+
+echo ("
+												<CENTER>
+													<TABLE BORDER=\"1\" WIDTH=\"100%\" CELLPADDING=\"0\" CELLSPACING=\"0\">
+														<TR>
+															<TD WIDTH=\"40%\"><A TITLE=\":: Profile ::\"><B>Member Name</B></A></TD>
+															<TD WIDTH=\"20%\"><A TITLE=\":: Private Message ::\"><B>Private Message</B></A></TD>
+															<TD WIDTH=\"20%\"><A TITLE=\":: Last Page View ::\"><B>Last Page View</B></A></TD>
+															<TD WIDTH=\"15%\"><B>Permissions</B></TD>
+														</TR>
+													</TABLE>
+												</CENTER>
+");
+
+/*
+ ================================================================
+ +
+ + List Member Entries
+ +
+ ================================================================
+*/
+
+while ($_Application_Module_Member_Active_Members_DB_Query_SELECT_MEMBERS_Fetch_Array = $DB->fetch_array($_Application_Module_Member_Active_Members_DB_Query_SELECT_MEMBERS)) {
+
+$_Application_Module_Member_Active_Members_LIST_MEMBER_ID				= $_Application_Module_Member_Active_Members_DB_Query_SELECT_MEMBERS_Fetch_Array['id'];
+$_Application_Module_Member_Active_Members_LIST_MEMBER_ACCESS_LEVEL			= $_Application_Module_Member_Active_Members_DB_Query_SELECT_MEMBERS_Fetch_Array['member_access_level'];
+$_Application_Module_Member_Active_Members_LIST_MEMBER_LAST_POST			= $_Application_Module_Member_Active_Members_DB_Query_SELECT_MEMBERS_Fetch_Array['member_last_post'];
+$_Application_Module_Member_Active_Members_LIST_MEMBER_USERNAME			= $_Application_Module_Member_Active_Members_DB_Query_SELECT_MEMBERS_Fetch_Array['member_username'];
+$_Application_Module_Member_Active_Members_LIST_MEMBER_ONLINE_STATUS			= $_Application_Module_Member_Active_Members_DB_Query_SELECT_MEMBERS_Fetch_Array['member_active_status'];
+
+/*
+ ================================================================
+ + If Member User / Administrator
+ ================================================================
+*/
+
+if ($_Application_Module_Member_Active_Members_LIST_MEMBER_ACCESS_LEVEL == "1") {
+
+	$_Application_Module_Member_Active_Members_LIST_MEMBER_PERMISSION	= "Member";
+
+}
+
+if ($_Application_Module_Member_Active_Members_LIST_MEMBER_ACCESS_LEVEL >= "2") {
+
+	$_Application_Module_Member_Active_Members_LIST_MEMBER_PERMISSION	= "Administrator";
+
+}
+
+$_Application_Module_Member_Active_Members_DATE_UOC 							= date("HdmY");
+
+if ($_Application_Module_Member_Active_Members_LIST_MEMBER_ONLINE == $_Application_Module_Member_Active_Members_DATE_UOC) {
+
+echo ("
+											<CENTER>
+												<TABLE BORDER=\"1\" WIDTH=\"100%\" CELLPADDING=\"0\" CELLSPACING=\"0\">
+													<TR>
+														<TD WIDTH=\"40%\"><A HREF=\"?$_INTERNAL_APPLICATION_MODULE_MEMBER&#61;Profile&amp;Name&#61;$_Application_Module_Member_Active_Members_LIST_MEMBER_USERNAME\" TITLE=\"Open Profile :: $_Application_Module_Member_Active_Members_LIST_MEMBER_USERNAME\">$_Application_Module_Member_Active_Members_LIST_MEMBER_USERNAME</A></TD>
+														<TD WIDTH=\"20%\"><A HREF=\"?$_INTERNAL_APPLICATION_MODULE_MEMBER&#61;Private_Message\" TITLE=\"Send Private Message To :: $_Application_Module_Member_Active_Members_LIST_MEMBER_USERNAME\">Private Message</A></TD>
+														<TD WIDTH=\"20%\"><A HREF=\"$_Application_Module_Member_Active_Members_LIST_MEMBER_LAST_POST\" TITLE=\":: Last Page View ::\">Hover</A>
+														<TD WIDTH=\"15%\">$_Application_Module_Member_Active_Members_LIST_MEMBER_PERMISSION</TD>
+													</TR>
+												</TABLE>
+											</CENTER>
+");
+
+} // [ + ] IF_ONLINE
+
+} // [ + ] WHILE_MEMBERS
+
+/*
+ ================================================================
+ + Kill SQL Database Server Query: Select All Member Entries
+ ================================================================
+*/
+
+$DB->free($_Application_Module_Member_Active_Members_DB_Query_SELECT_MEMBERS);
+?>
