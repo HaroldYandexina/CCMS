@@ -52,7 +52,7 @@
  ================================================================
  * This Kernel File Has Complete Control of Everything System-Wide
  * Refer to the programming documentation videos and portable-documents
- * to get a good understanding of how the entire system works
+ * for this project to get a good understanding of how the entire system works
  * and how to write programming code for CerberusCMS. This includes
  * Application Modules, Application Panels, Custom Themes and more.
  *
