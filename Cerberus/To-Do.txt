@@ -118,4 +118,5 @@
 * Update Activity Status Systems.
 * Update The System Electronic Mail Message System-Wide. Make All Electronic Mail Messages Extremely Detailed, Include I.P. Address, Timestamps and all other specific information about the server and the remote user.
 * Remake the entire Block System and Rename it to 'Panels' and 'Application Panels'.
-* Download last earlier backup from my GCJohnsonChev account and merge with new stuff I'm doing today, on monday 11-14-2022 but do it all from the browser just in case these files got malicious.
+* Download last earlier backup from my GCJohnsonChev account and merge with new stuff I'm doing today, on monday 11-14-2022 but do it all from the browser just in case these files got malicious. Everything must be done from the browser. Create 2 GITHUB repositories where 1 is the earlier backup from last Friday 11-11-2022: take all of these files and upload them to the new GITHUB repo. Download the backup zip from today ( 11-12-2022 ) and then upload that unpacked system to the new repo ( 2 ). Manually take all of the new code / comments from every file and then update it all from the browser in the earlier version. Don't forget.
+Also create some functions that output all of the Cerberus.php file now known as the Cerberus Kernel source to a file in /System/ where the source code can be viewed and read in the browser.
