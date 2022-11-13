@@ -176,6 +176,12 @@ if (file_exists($_GLOBAL_SECURITY_MASTER_SANITIZATION_FILE)) {
 
 	include_once "$_GLOBAL_SECURITY_MASTER_SANITIZATION_FILE";
 
+} else {
+
+	echo ("Cerberus: Missing :: Master Security Module :: Master Sanitization");
+
+} // [ + ] IF: Include: Global Security Module File: Master Sanitization
+
 /*
  ================================================================
  +
@@ -278,7 +284,7 @@ $_GLOBAL_SYSTEM_SAFEHTML_DIRECTORY						= $_DB_Query_Main_Settings_Fetch_Array['
 $_GLOBAL_SYSTEM_SAFEHTML_STATUS							= $_DB_Query_Main_Settings_Fetch_Array['settings_safeHTML_status'];
 
 /*
- =========================Credentials================================
+ =========================================================
  + Global System S.Q.L. Settings: Plug-Ins :: Text-Editor
  =========================================================
 */
@@ -1615,7 +1621,7 @@ if ($_GLOBAL_SYSTEM_GZIP_STATUS >= 1) {
 /*
  ================================================================
  +
- + Page Generation Variables
+ + Pre-Hyper-Text-Markup-Language Data Compression Variables :: Start
  +
  ================================================================
 */
@@ -1650,6 +1656,14 @@ $_MAIN_PAGE_GENERATION_START_TIME						= $_MAIN_PAGE_GENERATION_START_ARRAY[1] +
  +
  + @ Hyper-Text-Markup-Language Page Generation: Start
  +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + Hyper-Text-Markup-Language Page Generation :: Data Explosion
  +
  ================================================================
 */
@@ -2087,7 +2101,7 @@ echo ($_GLOBAL_THEME_LAYOUT_4);
  ================================================================
  +
  +
- + Hyper-Text-Markup-Language Page Generation: End
+ + @ Hyper-Text-Markup-Language Page Generation: End
  +
  +
  ================================================================
@@ -2095,13 +2109,50 @@ echo ($_GLOBAL_THEME_LAYOUT_4);
 
 /*
  ================================================================
- + Hyper-Text-Markup-Language Page Data Generation Variables, Data Implosion
+ +
+ + Hyper-Text-Markup-Language Page Generation :: Data Implosion
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + Pre-Hyper-Text-Markup-Language Data Implosion Variables
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Data Implosion :: Microtime
  ================================================================
 */
 
 $_MAIN_PAGE_GENERATION_END_TIME							= microtime();
+
+/*
+ ================================================================
+ + Data Implosion :: Time Explosion
+ ================================================================
+*/
+
 $_MAIN_PAGE_GENERATION_END_ARRAY						= explode(" ", $_MAIN_PAGE_GENERATION_END_TIME);
+
+/*
+ ================================================================
+ + Data Implosion :: Time Explosion Array
+ ================================================================
+*/
+
 $_MAIN_PAGE_GENERATION_END_TIME							= $_MAIN_PAGE_GENERATION_END_ARRAY[1] + $_MAIN_PAGE_GENERATION_END_ARRAY[0];
+
+/*
+ ================================================================
+ + Data Implosion :: Calculate Start and End Time For Page Generation
+ ================================================================
+*/
+
 $_MAIN_PAGE_GENERATION_TOTAL_TIME						= $_MAIN_PAGE_GENERATION_END_TIME - $_MAIN_PAGE_GENERATION_START_TIME; 
 $_MAIN_PAGE_GENERATION_TOTAL_TIME						= round($_MAIN_PAGE_GENERATION_TOTAL_TIME,5);
 
@@ -2109,7 +2160,7 @@ $_MAIN_PAGE_GENERATION_TOTAL_TIME						= round($_MAIN_PAGE_GENERATION_TOTAL_TIME
  ================================================================
  +
  +
- + Hyper-Text-Markup-Language Document=>End, Output
+ + @ Hyper-Text-Markup-Language Document=>End, Output
  +
  +
  ================================================================
@@ -2123,7 +2174,7 @@ echo ("
  ================================================================
  +
  +
- + Internal Resources :: Close User and Registered Member Connections
+ + Internal Resources :: Close Visitor and Registered Member Connections
  +
  +
  ================================================================
@@ -2198,12 +2249,6 @@ if ($DB->close($_CERBERUS_DATABASE_SERVER_CONNECT)) {
 } else {
 
 			echo ("Cerberus: Error: System Configuration File Missing: $_GLOBAL_CONFIGURATION_FILE | <A HREF=\"./Maintenance/Diagnostics/Diagnose.php\" TITLE=\":: Cerberus Content Management System :: Diagnostics Application ::\" TARGET=\"_NEW\">Please Click Here For Extensive Diagnostics</A>.");
-
-} else {
-
-			echo ("Cerberus: Error: System Security File Missing: $_GLOBAL_SECURITY_MASTER_SANITIZATION_FILE | <A HREF=\"./Maintenance/Diagnostics/Diagnose.php\" TITLE=\":: Cerberus Content Management System :: Diagnostics Application ::\" TARGET=\"_NEW\">Please Click Here For Extensive Diagnostics</A>.");
-
-} // [ + ] IF: File Exists: System Configuration File :: Master System Configuration
 
 } // [ + ] IF: File Exists: System Security Module :: Master Sanitization
 
