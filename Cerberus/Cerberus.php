@@ -1584,8 +1584,16 @@ if ($_GLOBAL_MEMBER_ACCESS_LEVEL >= 2) {
  ================================================================
  +
  +
- + @ Hyper-Text-Markup-Language Page Data Compression Protocols
+ + @ Hyper-Text-Markup-Language Output :: Data Compression Protocols
  +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + @ Hyper-Text-Markup-Language Output :: Data Compression :: Start
  +
  ================================================================
 */
@@ -1611,17 +1619,7 @@ if ($_GLOBAL_SYSTEM_GZIP_STATUS >= 1) {
 /*
  ================================================================
  +
- +
- + @ Pre-Hyper-Text-Markup-Language Output Data Control
- +
- +
- ================================================================
-*/
-
-/*
- ================================================================
- +
- + Pre-Hyper-Text-Markup-Language Data Compression Variables :: Start
+ + Pre-Hyper-Text-Markup-Language Data, Time Explosion :: Start
  +
  ================================================================
 */
@@ -1644,7 +1642,7 @@ $_MAIN_PAGE_GENERATION_START_ARRAY						= explode(" ", $_MAIN_PAGE_GENERATION_ST
 
 /*
  ================================================================
- + Hyper-Text-Markup-Language Page Data Generation Variables :: Explode Microtime=>Data
+ + Hyper-Text-Markup-Language Page Data Generation Variables :: Explode Microtime and Then Data
  ================================================================
 */
 
@@ -2141,7 +2139,7 @@ $_MAIN_PAGE_GENERATION_END_ARRAY						= explode(" ", $_MAIN_PAGE_GENERATION_END_
 
 /*
  ================================================================
- + Data Implosion :: Time Explosion Array
+ + Data Implosion :: Time Explosion Array, End-Time
  ================================================================
 */
 
@@ -2149,7 +2147,7 @@ $_MAIN_PAGE_GENERATION_END_TIME							= $_MAIN_PAGE_GENERATION_END_ARRAY[1] + $_
 
 /*
  ================================================================
- + Data Implosion :: Calculate Start and End Time For Page Generation
+ + Data Implosion :: Calculate Start-Time and End-Time For Page Generation
  ================================================================
 */
 
@@ -2160,7 +2158,7 @@ $_MAIN_PAGE_GENERATION_TOTAL_TIME						= round($_MAIN_PAGE_GENERATION_TOTAL_TIME
  ================================================================
  +
  +
- + @ Hyper-Text-Markup-Language Document=>End, Output
+ + @ Hyper-Text-Markup-Language Document: End, Output
  +
  +
  ================================================================
