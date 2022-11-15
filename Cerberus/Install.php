@@ -641,8 +641,8 @@ member_image_avatar VARCHAR(50),
 member_image_picture VARCHAR(45),
 member_ip_address_authorized VARCHAR(250),
 member_ip_address_last_known VARCHAR(250),
+member_ip_address_last_login VARCHAR(250),
 member_ip_address_log TEXT,
-member_last_login VARCHAR(100),
 member_last_post VARCHAR(100),
 member_location VARCHAR(250),
 member_mood VARCHAR(250),
@@ -1181,9 +1181,7 @@ member_status_newsletter,
 member_status_sound,
 member_theme_directory,
 member_url_homepage,
-member_username)
-VALUES
-(
+member_username)VALUES(
 '2',
 '00-00-0000',
 'Empty Entry :: BitCoin Address',
@@ -1244,8 +1242,7 @@ VALUES
 '0',
 'Cerberus',
 'Empty Entry :: URL Home-Page',
-'$_POST_ADMINISTRATOR_USERNAME',
-)");
+'$_POST_ADMINISTRATOR_USERNAME')");
 
 /*
  ================================================================
@@ -1378,8 +1375,7 @@ VALUES
 '0',
 'Cerberus',
 'Empty Entry :: URL Home-Page',
-'$_POST_ADMINISTRATOR_USERNAME',
-)");
+'$_POST_ADMINISTRATOR_USERNAME')");
 
 	echo ("[ Done ]<BR>");
 
