@@ -434,7 +434,7 @@ member_experience_amount CHAR(10),
 member_image_avatar VARCHAR(50),
 member_image_picture VARCHAR(45),
 member_ip_address_authorized VARCHAR(250),
-member_ip_address_last_known VARCHAR(250),
+member_ip_address_last_login VARCHAR(250),
 member_ip_address_log TEXT,
 member_last_login VARCHAR(100),
 member_last_post VARCHAR(100),
@@ -818,9 +818,7 @@ member_status_newsletter,
 member_status_sound,
 member_theme_directory,
 member_url_homepage,
-member_username)
-VALUES
-(
+member_username)VALUES(
 '2',
 '00-00-0000',
 'Empty Entry :: BitCoin Address',
@@ -881,8 +879,7 @@ VALUES
 '0',
 'Cerberus',
 'Empty Entry :: URL Home-Page',
-'$_MySQL_Generator_POST_ADMINISTRATION_USERNAME'
-);
+'$_MySQL_Generator_POST_ADMINISTRATION_USERNAME');
 
 /*
  ================================================================
@@ -952,9 +949,7 @@ member_status_newsletter,
 member_status_sound,
 member_theme_directory,
 member_url_homepage,
-member_username)
-VALUES
-(
+member_username)VALUES(
 '3',
 '00-00-0000',
 'Empty Entry :: BitCoin Address',
@@ -1015,8 +1010,7 @@ VALUES
 '0',
 'Cerberus',
 'Empty Entry :: URL Home-Page',
-'$_MySQL_Generator_POST_ADMINISTRATION_USERNAME'
-);
+'$_MySQL_Generator_POST_ADMINISTRATION_USERNAME');
 ";
 
 $_MySQL_Generator_PRINT_MySQL_TABLES					= str_replace('\"', '', $_MySQL_Generator_PRINT_MySQL_TABLES);
