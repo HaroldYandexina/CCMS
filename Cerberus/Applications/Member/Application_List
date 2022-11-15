@@ -68,11 +68,11 @@ $_Application_Module_Member_Application_List_DB_Query_List_Applications		= $DB->
 
 /*
  ================================================================
- + Select All Block Application Modules
+ + Select All Application Panels
  ================================================================
 */
 
-$_Application_Module_Member_Application_List_DB_Query_List_Blocks			= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_blocks");
+$_Application_Module_Member_Application_List_DB_Query_List_Panels			= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_application_panels");
 
 /*
  ================================================================
@@ -100,29 +100,29 @@ echo ("
 
 } // [ + ] WHILE_FETCH_ARRAY
 
-														echo ("<B>Application Block Modules</B><HR>");
+														echo ("<B>Application Panels</B><HR>");
 
 /*
  ================================================================
- + List All Block Application Module Table Rows
+ + List All Application Panel Table Rows
  ================================================================
 */
 
-while ($_Application_Module_Member_Application_List_DB_Query_List_Blocks_Fetch_Array = $DB->fetch_array($_Application_Module_Member_Application_List_DB_Query_List_Blocks)) {
+while ($_Application_Module_Member_Application_List_DB_Query_List_Panels_Fetch_Array = $DB->fetch_array($_Application_Module_Member_Application_List_DB_Query_List_Panels)) {
 
-$_Application_Module_Member_Application_List_LIST_BLOCK_ID				= $_Application_Module_Member_Application_List_DB_Query_List_Blocks_Fetch_Array['id'];
-$_Application_Module_Member_Application_List_LIST_BLOCK_FILE_NAME			= $_Application_Module_Member_Application_List_DB_Query_List_Blocks_Fetch_Array['block_file_name'];
-$_Application_Module_Member_Application_List_LIST_BLOCK_ALIGNMENT			= $_Application_Module_Member_Application_List_DB_Query_List_Blocks_Fetch_Array['block_alignment'];
-$_Application_Module_Member_Application_List_LIST_BLOCK_ROW				= $_Application_Module_Member_Application_List_DB_Query_List_Blocks_Fetch_Array['block_row'];
-$_Application_Module_Member_Application_List_LIST_BLOCK_FILE_STATUS			= $_Application_Module_Member_Application_List_DB_Query_List_Blocks_Fetch_Array['block_file_status'];
-$_Application_Module_Member_Application_List_LIST_BLOCK_TITLE				= $_Application_Module_Member_Application_List_DB_Query_List_Blocks_Fetch_Array['block_title'];
+$_Application_Module_Member_Application_List_LIST_PANEL_ID				= $_Application_Module_Member_Application_List_DB_Query_List_Panels_Fetch_Array['id'];
+$_Application_Module_Member_Application_List_LIST_PANEL_FILE_NAME			= $_Application_Module_Member_Application_List_DB_Query_List_Panels_Fetch_Array['panel_file_name'];
+$_Application_Module_Member_Application_List_LIST_PANEL_ALIGNMENT			= $_Application_Module_Member_Application_List_DB_Query_List_Panels_Fetch_Array['panel_alignment'];
+$_Application_Module_Member_Application_List_LIST_PANEL_ROW				= $_Application_Module_Member_Application_List_DB_Query_List_Panels_Fetch_Array['panel_row'];
+$_Application_Module_Member_Application_List_LIST_PANEL_FILE_STATUS			= $_Application_Module_Member_Application_List_DB_Query_List_Panels_Fetch_Array['panel_file_status'];
+$_Application_Module_Member_Application_List_LIST_PANEL_TITLE				= $_Application_Module_Member_Application_List_DB_Query_List_Panels_Fetch_Array['panel_title'];
 
 echo ("
-														<B>Application Block: $_Application_Module_Member_Application_List_LIST_BLOCK_FILE_NAME</B><BR>
-														* Application File ID: $_Application_Module_Member_Application_List_LIST_BLOCK_ID<BR>
-														* Application Block File Permission: $_Application_Module_Member_Application_List_LIST_APPLICATION_FILE_PERMISSION<BR>
-														* Application Block File Status: $_Application_Module_Member_Application_List_LIST_BLOCK_FILE_STATUS<BR>
-														<A HREF=\"./Applications/Block/$_Application_Module_Member_Application_List_LIST_BLOCK_FILE_NAME.blk\" TITLE=\"Open & Display The Source Code :: For The Application Block Module :: $_Application_Module_Member_Application_List_LIST_BLOCK_FILE_NAME\">Source Code</A><BR><BR>
+														<B>Application Panel: $_Application_Module_Member_Application_List_LIST_PANEL_FILE_NAME</B><BR>
+														* Application File ID: $_Application_Module_Member_Application_List_LIST_PANEL_ID<BR>
+														* Application Panel File Permission: $_Application_Module_Member_Application_List_LIST_APPLICATION_FILE_PERMISSION<BR>
+														* Application Panel File Status: $_Application_Module_Member_Application_List_LIST_PANEL_FILE_STATUS<BR>
+														<A HREF=\"./Applications/Panel/$_Application_Module_Member_Application_List_LIST_PANEL_FILE_NAME.panel\" TITLE=\"Open & Display The Source Code :: For The Application Panel :: $_Application_Module_Member_Application_List_LIST_PANEL_FILE_NAME\">Source Code</A><BR><BR>
 ");
 
 } // [ + ] WHILE_FETCH_ARRAY
@@ -137,9 +137,9 @@ $DB->free($_Application_Module_Member_Application_List_DB_Query_List_Application
 
 /*
  ================================================================
- + Kill SQL Database Server Query: Select All Block Application List
+ + Kill SQL Database Server Query: Select All Application Panels
  ================================================================
 */
 
-$DB->free($_Application_Module_Member_Application_List_DB_Query_List_Blocks);
+$DB->free($_Application_Module_Member_Application_List_DB_Query_List_Panels);
 ?>
