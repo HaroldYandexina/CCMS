@@ -100,6 +100,6 @@ echo ("
 													<INPUT TYPE=\"submit\" VALUE=\"Post Shout Message\">
 											</FORM>
 											<HR>
-												<CENTER>[ <A HREF=\"?$_INTERNAL_APPLICATION_MODULE_MEMBER&#61;All_Shouts\" TITLE=\":: Open & Display The Application Module :: All Shouts ::\">All Shouts</A> ]</CENTER>
+												<CENTER>[ <A HREF=\"?$_INTERNAL_APPLICATION_MODULE_MEMBER&#61;All_Shouts\" TITLE=\":: Open & Display The Application Module :: All Shout Messages ::\">All Shout Messages</A> ]</CENTER>
 ");
 ?>
