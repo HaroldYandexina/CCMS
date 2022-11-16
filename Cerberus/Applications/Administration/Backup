@@ -1,0 +1,150 @@
+<?php
+/*
+ ============================================================================================================
+ + Cerberus Content Management System
+ + ---
+ + - Author 		     : Gary Christopher Johnson - Rosedale, California
+ + - Electronic Mail Address : TinkeSoftware@Protonmail.com
+ + - Company		     : Tinke Software
+ + - Company Address	     : Rosedale, California, U.S.A.
+ + - Document Notes	     : View this file in a non-formatting text editor without word-wrap for the correct
+ +			       display of this programming code and its indentation.
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Cerberus->Applications->Administration->Backup
+ + - File Version : 0.6 - Wednesday, March 1st of 2023
+ + ---
+ + -------------------------------------------------------------------------------
+ + --()()--()()()--()()()--()()()---()()()--()()()--()--()------()()()------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()()()--()()()--()()()---()()()--()()()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------/-\-
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------|4|-  ~ Wynn ~
+ + --()()--()()()--()--()--()()()---()()()--()--()--()()()--()()()------------\-/- Build: 0.8
+ ============================================================================================================
+*/
+
+/*
+ ================================================================
+ +
+ +
+ + Application Module :: Administration :: Backup Files and Backup Archive Management
+ +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + Backup Files Form Post Variables
+ +
+ ================================================================
+*/
+
+$_Application_Module_Administration_Backup_POST_BACKUP_FILES					= $_POST['module_backup_backup_files'];
+$_Application_Module_Administration_Backup_POST_BACKUP_DATE 					= date("l_F_j_Y_g:i:s-A");
+
+if (!$_Application_Module_Administration_Backup_POST_BACKUP_FILES) {
+
+/*
+ ================================================================
+ +
+ + Backup Files Form
+ +
+ ================================================================
+*/
+
+echo ("
+													<CENTER><B>Backup File(s)</B></CENTER><HR>
+														<FORM ACTION=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Backup\" METHOD=\"post\">
+															Example: <I>My_Pictures.ext</I> - Placing an * (Asterisk) in the field will backup the entire system.<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_backup_backup_files\"><BR>
+																<INPUT TYPE=\"submit\" VALUE=\"Backup\">
+														</FORM><BR><BR>
+");
+
+} else {
+
+if (system("zip -r Module/Administration/System_Backup/$_Application_Module_Administration_Backup_POST_BACKUP_DATE.zip $_Application_Module_Administration_Backup_POST_BACKUP_FILES")) {
+													echo ($_Message_Backup_COMPRESSION_SUCCESSFUL);
+} else {
+													echo ("$_Message_ERROR_ACTION_UNIVERSAL [PHP Version]");
+} // [ + ] IF_BACKUP
+
+} // [ + ] IF_NULL
+
+/*
+ ================================================================
+ +
+ +
+ + Display / Delete Archived / Packaged Files
+ +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ +
+ + Read Backup Directory
+ +
+ ================================================================
+*/
+
+$_Application_Module_Administration_Backup_SPECIFY_BACKUP_DIRECTORY				= "./Applications/Administration/System_Backup/";
+$_Application_Module_Administration_Backup_OPEN_BACKUP_DIRECTORY				= opendir($_Application_Module_Administration_Backup_SPECIFY_BACKUP_DIRECTORY);
+
+													echo ("<HR><CENTER><B>Existing File(s)</B></CENTER><HR>");
+
+while (($_Application_Module_Administration_Backup_READ_BACKUP_DIRECTORY = readdir($_Application_Module_Administration_Backup_OPEN_BACKUP_DIRECTORY))) {
+
+if ($_Application_Module_Administration_Backup_READ_BACKUP_DIRECTORY == "." || $_Application_Module_Administration_Backup_READ_BACKUP_DIRECTORY == ".." || $_Application_Module_Administration_Backup_READ_BACKUP_DIRECTORY == "index.php") {
+/**
+ * Do Nothing
+**/
+} else {
+													echo ("<CENTER><TABLE BORDER=\"1\" WIDTH=\"100%\" CELLPADDING=\"0\" CELLSPACING=\"0\"><TR><TD WIDTH=\"80%\"><A HREF=\"Module/Administration/System_Backup/$_Application_Module_Administration_Backup_READ_BACKUP_DIRECTORY\" TITLE=\"Download :: $_Application_Module_Administration_Backup_READ_BACKUP_DIRECTORY\">$_Application_Module_Administration_Backup_READ_BACKUP_DIRECTORY</A></TD><TD WIDTH=\"30%\"><A HREF=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Backup&amp;Delete&#61;$_Application_Module_Administration_Backup_READ_BACKUP_DIRECTORY\" TITLE=\"Delete :: $_Application_Module_Administration_Backup_READ_BACKUP_DIRECTORY\">Delete</A></TD></TR></TABLE></CENTER>");
+
+/*
+ ================================================================
+ +
+ + Delete Backup Package(s) and Archives
+ +
+ ================================================================
+*/
+
+if ($_GET["Delete"] == "$_Application_Module_Administration_Backup_READ_BACKUP_DIRECTORY") {
+
+if (unlink("Module/Administration/System_Backup/$_Application_Module_Administration_Backup_READ_BACKUP_DIRECTORY"))
+													echo ($_Message_Backup_DELETE_PACKAGE_SUCCESSFUL);
+} else {
+													//echo ($_Message_ERROR_ACTION_UNIVERSAL);
+} // [ + ] IF_DELETE_FILE
+
+} // [ + ] WHILE_ARRAY
+
+} // [ + ] IF_NOT_DIR
+
+/*
+ ================================================================
+ + Close Directory: Backup Directory
+ ================================================================
+*/
+
+closedir($_Application_Module_Administration_Backup_OPEN_BACKUP_DIRECTORY);
+?>
