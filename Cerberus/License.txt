@@ -91,17 +91,18 @@ https://CerberusCMS.SourceForge.net
 https://www.SourceForge.net/u/tinkesoftware/profile
 https://www.GitHub.com/TinkeSoftware
 ============================================================================================================================================================
-LET ("Tinke Software, Inc.") FORMERLY KNOWN AS RUNESOFT, INC. BE KNOWN AS ONE OF THE LICENSE AND RIGHTS HOLDERS OF CerberusCMS, Cerberus C.M.S.,
-Cerberus Content Management System, AND THE REPRESENTOR, LICENSE AND RIGHTS HOLDER OF Gary Christopher Johnson also known as G.C. Johnson's SOFTWARE WORKS.
+LET ("Tinke Software, Inc.") Registered In Year 2016 FORMERLY KNOWN AS RUNESOFT, INC. BE KNOWN AS ONE OF THE LICENSE AND RIGHTS HOLDERS OF CerberusCMS, Cerberus C.M.S.,
+Cerberus Content Management System AND THE REPRESENTOR, LICENSE AND RIGHTS HOLDER OF Gary Christopher Johnson also known as G.C. Johnson's SOFTWARE WORKS.
 
 ----------------
 Rules
 ----------------
 
-1a.) Tinke Software permits you to operate Cerberus Content Management System strictly by the following rules:
-1b.) You may make copies of Cerberus Content Management System and transfer, distribute them freely, but not for monetary or lucrative gain.
-1c.) You may not usurp, reproduce, copy or plagiarize any of the fundamentals, content or programming code released with Cerberus Content Management System.
-1d.) You may modify the copy of this project code you downloaded as well as add to it as you wish.
+1a.) Tinke Software permits you to operate Cerberus Content Management System on your own web server strictly by the following rules:
+1b.) You may make copies of Cerberus Content Management System and transfer, distribute them freely.
+1c.) You may not usurp, reproduce, copy or plagiarize any of the fundamentals, content or programming code released with Cerberus Content Management System in any other Software Project.
+1d.) You may modify the copy of the Cerberus Content Management System Project you downloaded as well as add to it as you wish.
+1e.) You may not modify the master copies of Cerberus Content Management System from the Project Development Team.
 
 ----------------
 Damages
@@ -138,23 +139,24 @@ https://CerberusCMS.SourceForge.net
 https://www.SourceForge.net/u/tinkesoftware/profile
 https://www.GitHub.com/TinkeSoftware
 ============================================================================================================================================================
-LET ("Tinke Software, Inc.") FORMERLY KNOWN AS RUNESOFT, INC. BE KNOWN AS ONE OF THE LICENSE AND RIGHTS HOLDERS OF CerberusCMS, Cerberus C.M.S.,
+LET ("Tinke Software, Inc.") Registered In Year 2016 FORMERLY KNOWN AS RUNESOFT, INC. BE KNOWN AS ONE OF THE LICENSE AND RIGHTS HOLDERS OF CerberusCMS, Cerberus C.M.S.,
 Cerberus Content Management System, AND THE REPRESENTOR, LICENSE AND RIGHTS HOLDER OF Gary Christopher Johnson also known as G.C. Johnson's SOFTWARE WORKS.
 
 ----------------
 Rules
 ----------------
 
-1a.) Tinke Software permits you to operate Cerberus Content Management System strictly by the following rules:
-1b.) You may not make copies of Cerberus Content Management System for monetary or lucrative gain.
-1c.) You may not usurp, reproduce or plagiarize any of the fundamentals, content or programming code released with Cerberus Content Management System.
-1d.) You may modify the copy of this project code you downloaded as well as add to it as you wish.
+1a.) Tinke Software permits you to operate Cerberus Content Management System on your own web server strictly by the following rules:
+1b.) You may make copies of Cerberus Content Management System and transfer, distribute them freely.
+1c.) You may not usurp, reproduce, copy or plagiarize any of the fundamentals, content or programming code released with Cerberus Content Management System in any other Software Project.
+1d.) You may modify the copy of the Cerberus Content Management System Project you downloaded as well as add to it as you wish.
+1e.) You may not modify the master copies of Cerberus Content Management System from the Project Development Team.
 
 ----------------
 Damages
 ----------------
 
-2.) Tinke Software, G.C. Johnson is not responsible for any damages incurred with the use of this software.
+2.) Tinke Software, Gary Christopher Johnson, G.C. Johnson is not responsible for any damages incurred with the use of this software.
 
 ----------------
 Warranty
