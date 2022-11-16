@@ -1,0 +1,213 @@
+<?php
+/*
+ =============================================================================================
+ + Cerberus Content Management System.
+ + ---
+ + - Author : Gary Christopher Johnson
+ + - E-Mail : TinkeSoftware@Protonmail.com
+ + - Company: Tinke Software
+ + - Notes  : View this file in a non-formatting text editor for correct indentation display
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Cerberus->Applications->Member->All_Shouts
+ + - File Version:  0.6 - Wednesday, March 1st of 2023.
+ + ---
+ + -------------------------------------------------------------------------------
+ + --()()--()()()--()()()--()()()---()()()--()()()--()--()------()()()------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()()()--()()()--()()()---()()()--()()()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------/-\-
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------|4|-  ~ Wynn ~
+ + --()()--()()()--()--()--()()()---()()()--()--()--()()()--()()()------------\-/- Build: 0.8
+ ===========================================================================================
+*/
+
+/*
+ ================================================================
+ +
+ +
+ + Application Module :: All Shouts
+ +
+ +
+ ================================================================
+*/
+
+/*
+ ================================================================
+ + Application Module Header
+ ================================================================
+*/
+
+											echo ($_Application_Module_Message_Member_All_Shouts_Header);
+
+/*
+ ================================================================
+ +
+ + DB->Retrieve Shout Entries
+ +
+ ================================================================
+*/
+
+$_Application_Module_Member_All_Shouts_DB_Query_SELECT_SHOUTS			= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_shouts ORDER BY id DESC LIMIT 100");
+
+if ($DB->num_rows($_Application_Module_Member_All_Shouts_DB_Query_SELECT_SHOUTS) <= 0) {
+
+											echo ($_Application_Module_Message_Member_All_Shouts_NO_SHOUTS);
+
+} else {
+
+while ($_Application_Module_Member_All_Shouts_DB_Query_SELECT_SHOUTS_Fetch_Array = $DB->fetch_array($_Application_Module_Member_All_Shouts_DB_Query_SELECT_SHOUTS)) {
+
+/*
+ ================================================================
+ +
+ + List Shout Entries
+ +
+ ================================================================
+*/
+
+$_Application_Module_Member_All_Shouts_LIST_SHOUT_ID				= $_Application_Module_Member_All_Shouts_DB_Query_SELECT_SHOUTS_Fetch_Array['id'];
+$_Application_Module_Member_All_Shouts_LIST_SHOUT_AUTHOR			= $_Application_Module_Member_All_Shouts_DB_Query_SELECT_SHOUTS_Fetch_Array['shout_author'];
+$_Application_Module_Member_All_Shouts_LIST_SHOUT_DATA				= $_Application_Module_Member_All_Shouts_DB_Query_SELECT_SHOUTS_Fetch_Array['shout_data'];
+$_Application_Module_Member_All_Shouts_LIST_SHOUT_TIME				= $_Application_Module_Member_All_Shouts_DB_Query_SELECT_SHOUTS_Fetch_Array['shout_time'];
+
+echo ("
+											<CENTER>
+												<TABLE WIDTH=\"100%\" BORDER=\"1\" CELLPADDING=\"0\" CELLSPACING=\"0\">
+													<TR>
+														<TD WIDTH=\"40%\"><B>Shout Author</B>: <A HREF=\"?$_INTERNAL_APPLICATION_MODULE_MEMBER&#61;Profile&amp;Name&#61;$_Application_Module_Member_All_Shouts_LIST_SHOUT_AUTHOR\" TITLE=\"Open Profile For :: $_Application_Module_Member_All_Shouts_LIST_SHOUT_AUTHOR\">$_Application_Module_Member_All_Shouts_LIST_SHOUT_AUTHOR</A></TD>
+														<TD WIDTH=\"60%\"><B>Shout Posted On</B>: <I>$_Application_Module_Member_All_Shouts_LIST_SHOUT_TIME</I></TD>
+													</TR>
+												</TABLE>
+											</CENTER>
+
+											<CENTER>
+												<TABLE WIDTH=\"100%\" BORDER=\"1\" CELLPADDING=\"0\" CELLSPACING=\"0\">
+													<TR>
+														<TD WIDTH=\"100%\"><B>Shout Message</B>: <I>$_Application_Module_Member_All_Shouts_LIST_SHOUT_DATA</I></TD>
+													</TR>
+												</TABLE>
+											</CENTER>
+
+											[ <A HREF=\"?$_INTERNAL_APPLICATION_MODULE_MEMBER&#61;All_Shouts&amp;DeleteID&#61;$_Application_Module_Member_All_Shouts_LIST_SHOUT_ID\" TITLE=\":: Delete This Shout Message ::\">Delete</A> ]<BR><BR>
+");
+
+/*
+ ================================================================
+ +
+ + Delete Selected Shout ID
+ +
+ ================================================================
+*/
+
+if ($_GET["DeleteID"] == "$_Application_Module_Member_All_Shouts_LIST_SHOUT_ID") {
+
+if ($_GLOBAL_COOKIE_MEMBER_USERNAME != $_Application_Module_Member_All_Shouts_LIST_SHOUT_AUTHOR) {
+
+											echo ($_Application_Module_Message_Member_All_Shouts_DELETE_SHOUT_NOT_USER);
+
+} else {
+
+if ($DB->query("DELETE FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_shouts WHERE id='$_Application_Module_Member_All_Shouts_LIST_SHOUT_ID'")) {
+
+											echo ($_Application_Module_Message_Member_All_Shouts_DELETE_SHOUT);
+
+} else {
+
+											echo ($_Application_Module_Message_Member_All_Shouts_DELETE_SHOUT_ERROR);
+
+} // [ + ] IF_QUERY
+
+} // [ + ] IF_IS_MEMBER
+
+} // [ + ] IF_DELETE
+
+} // [ + ] WHILE_SHOUTS
+
+} // [ + ] IF_NUMBER_OF_ROWS
+
+/*
+ ================================================================
+ + Kill SQL Database Server Query: Select All Shout Entries
+ ================================================================
+*/
+
+$DB->free($_Application_Module_Member_All_Shouts_DB_Query_SELECT_SHOUTS);
+
+/*
+ ================================================================
+ +
+ + Post Shout
+ +
+ ================================================================
+*/
+
+$_Application_Module_Member_All_Shouts_POST_SHOUT_MESSAGE			= $_POST['post_shout_message'];
+$_Application_Module_Member_All_Shouts_POST_SHOUT_MESSAGE			= str_replace($_GLOBAL_SAFEHTML_CODE, $_GLOBAL_SAFEHTML_CODE_REPLACE, $_Application_Module_Member_All_Shouts_POST_SHOUT_MESSAGE);
+$_Application_Module_Member_All_Shouts_POST_SHOUT_MESSAGE			= str_replace($_GLOBAL_SAFEHTML_SMILEYS, $_GLOBAL_SAFEHTML_SMILEYS_REPLACE, $_Application_Module_Member_All_Shouts_POST_SHOUT_MESSAGE);
+
+if (!$_Application_Module_Member_All_Shouts_POST_SHOUT_MESSAGE) {
+
+echo ("
+											<HR><FORM ACTION=\"?$_INTERNAL_APPLICATION_MODULE_MEMBER&#61;All_Shouts\" METHOD=\"post\">
+												Shout Message:<BR>
+												[ Maximum Shout Message Length: 250 Characters ]<BR>
+													<INPUT TYPE=\"text\" NAME=\"post_shout_message\" MAXLENGTH=\"250\"><BR>
+													<INPUT TYPE=\"submit\" VALUE=\"Post Shout Message\">
+											</FORM><HR>
+");
+
+} else {
+
+if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null) {
+
+$_Application_Module_Member_All_Shouts_DB_Query_INSERT_SHOUT		= $DB->query("INSERT INTO {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_shouts(shout_author,shout_data,shout_time)VALUES('$_GLOBAL_COOKIE_MEMBER_USERNAME','$_Application_Module_Member_All_Shouts_POST_SHOUT_MESSAGE','$_GLOBAL_DATE')");
+
+if (strlen($_Application_Module_Member_All_Shouts_POST_SHOUT_MESSAGE) > "250") {
+
+											echo ($_Application_Module_Message_Member_All_Shouts_POST_LENGTH_ERROR);
+
+} else {
+
+if ($_Application_Module_Member_All_Shouts_DB_Query_INSERT_SHOUT) {
+
+											echo ($_Application_Module_Message_Member_All_Shouts_POST_SHOUT);
+
+} else {
+
+											echo ($_Application_Module_Message_Member_All_Shouts_POST_ERROR);
+
+} // [ + ] IF_STRING_LENGTH
+
+} // [ + ] IF_DB_Query
+
+/*
+ ================================================================
+ + Kill SQL Database Server Query: Insert Shout Message
+ ================================================================
+*/
+
+$DB->free($_Application_Module_Member_All_Shouts_DB_Query_INSERT_SHOUT);
+
+} else {
+
+											echo ($_Application_Module_Message_Member_All_Shouts_ERROR_ACCESS_LEVEL);
+											
+} // [ + ] IF_COOKIE
+
+} // [ + ] IF_NULL
+?>
