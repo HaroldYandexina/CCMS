@@ -1,12 +1,14 @@
 <?php
 /*
- ===========================================================================================
- + Cerberus Content Management System.
+ ============================================================================================================
+ + Cerberus Content Management System
  + ---
- + - Author : Gary Christopher Johnson
- + - E-Mail : TinkeSoftware@Protonmail.com
- + - Company: Tinke Software
- + - Notes  : View this file in a non-formatting text editor for correct indentation display
+ + - Author 		     : Gary Christopher Johnson - Rosedale, California
+ + - Electronic Mail Address : TinkeSoftware@Protonmail.com
+ + - Company		     : Tinke Software
+ + - Company Address	     : Rosedale, California, U.S.A.
+ + - Document Notes	     : View this file in a non-formatting text editor without word-wrap for the correct
+ +			       display of this programming code and its indentation.
  + ---
  +
  +
@@ -21,7 +23,7 @@
  +
  + ---
  + - File Location: root->index.php
- + - File Version:  0.6 - Wednesday, March 1st of 2023.
+ + - File Version : 0.6 - Wednesday, March 1st of 2023
  + ---
  + -------------------------------------------------------------------------------
  + --()()--()()()--()()()--()()()---()()()--()()()--()--()------()()()------------
@@ -33,14 +35,16 @@
  + -()-----()------()--()--()---()--()------()--()--()--()------()------------/-\-
  + -()-----()------()--()--()---()--()------()--()--()--()------()------------|4|-  ~ Wynn ~
  + --()()--()()()--()--()--()()()---()()()--()--()--()()()--()()()------------\-/- Build: 0.8
- ===========================================================================================
+ ============================================================================================================
 */
 
 /*
  ================================================================
  +
  +
- + Master Index File
+ +
+ + Cerberus Content Management System :: Master Index File
+ +
  +
  +
  ================================================================
@@ -60,7 +64,7 @@
  ================================================================
 */
 
-$_CerberusCMS_Installation_File		= "./Installation/Install.php";
+$_CerberusCMS_Installation_File		= "./Cerberus/Install.php";
 
 /*
  ================================================================
@@ -70,7 +74,7 @@ $_CerberusCMS_Installation_File		= "./Installation/Install.php";
 
 if (file_exists($_CerberusCMS_Installation_File)) {
 
-	header("location: ./Installation/Install.php");
+	header("location: ./Cerberus/Install.php");
 
 /*
  ================================================================
@@ -82,5 +86,5 @@ if (file_exists($_CerberusCMS_Installation_File)) {
 
 	header("location: ./Cerberus/Cerberus.php?Application_Member=News");
 
-} // [ + ] IF_FILE_EXISTS_CerberusCMS_Installation_File
+} // [ + ] IF: File Exists: Cerberus Installation Application
 ?>
