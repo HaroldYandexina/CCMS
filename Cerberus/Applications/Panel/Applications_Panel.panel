@@ -1,0 +1,67 @@
+<?php
+/*
+ ===========================================================================================
+ + Cerberus Content Management System.
+ + ---
+ + - Author : Gary Christopher Johnson
+ + - E-Mail : TinkeSoftware@Protonmail.com
+ + - Company: Tinke Software
+ + - Notes  : View this file in a non-formatting text editor for correct indentation display
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Cerberus->Applications->Block->Applications_Panel.blk
+ + - File Version:  0.6 - Wednesday, March 1st of 2023.
+ + ---
+ + -------------------------------------------------------------------------------
+ + --()()--()()()--()()()--()()()---()()()--()()()--()--()------()()()------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()()()--()()()--()()()---()()()--()()()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------/-\-
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------|4|-  ~ Wynn ~
+ + --()()--()()()--()--()--()()()---()()()--()--()--()()()--()()()------------\-/- Build: 0.8
+ ===========================================================================================
+*/
+
+/*
+ ================================================================
+ +
+ +
+ + Application Module Block :: Applications Panel
+ +
+ +
+ ================================================================
+*/
+
+$_Application_Module_Panel_Application_Links_DB_Query_SELECT_APPLICATION_LINKS		= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_application_links ORDER BY application_link_row ASC");
+
+while ($_Application_Module_Panel_Application_Links_DB_Query_SELECT_APPLICATION_LINKS_Fetch_Array = $DB->fetch_array($_Application_Module_Panel_Application_Links_DB_Query_SELECT_APPLICATION_LINKS)) {
+
+$_Application_Module_Panel_Application_Links_LIST_APPLICATION_LINK_NAME			= $_Application_Module_Panel_Application_Links_DB_Query_SELECT_APPLICATION_LINKS_Fetch_Array['application_link_name'];
+$_Application_Module_Panel_Application_Links_LIST_APPLICATION_LINK_URL			= $_Application_Module_Panel_Application_Links_DB_Query_SELECT_APPLICATION_LINKS_Fetch_Array['application_link_url'];
+
+											echo ("<BIG><B>&middot;</B></BIG>&nbsp;<A HREF=\"$_Application_Module_Panel_Application_Links_LIST_APPLICATION_LINK_URL\" TITLE=\":: Open & Display The Application Module :: $_Application_Module_Panel_Application_Links_LIST_APPLICATION_LINK_NAME ::\">$_Application_Module_Panel_Application_Links_LIST_APPLICATION_LINK_NAME</A><BR>");
+
+} // [ + ] WHILE_SQL_QUERY_SELECT_APPLICATION_LINKS
+
+/*
+ ================================================================
+ + Kill SQL Database Server Query: Select All Application Links
+ ================================================================
+*/
+
+$DB->free($_Application_Module_Panel_Application_Links_DB_Query_SELECT_APPLICATION_LINKS);
+?>

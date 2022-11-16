@@ -1,0 +1,660 @@
+<?php
+/*
+ =============================================================================================
+ + Cerberus Content Management System.
+ + ---
+ + - Author : Gary Christopher Johnson
+ + - E-Mail : TinkeSoftware@Protonmail.com
+ + - Company: Tinke Software
+ + - Notes  : View this file in a non-formatting text editor for correct indentation display
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Cerberus->Applications->Administration->Forum
+ + - File Version:  0.6 - Wednesday, March 1st of 2023.
+ + ---
+ + -------------------------------------------------------------------------------
+ + --()()--()()()--()()()--()()()---()()()--()()()--()--()------()()()------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()()()--()()()--()()()---()()()--()()()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()----------------
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------/-\-
+ + -()-----()------()--()--()---()--()------()--()--()--()------()------------|4|-  ~ Wynn ~
+ + --()()--()()()--()--()--()()()---()()()--()--()--()()()--()()()------------\-/- Build: 0.8
+ ===========================================================================================
+*/
+
+/*
+ ================================================================
+ +
+ +
+ + Forum, Forum Topic, Forum Post Management
+ +
+ +
+ ================================================================
+*/
+
+/*
+ =================================================================
+ +
+ + Install Forum Input Form Post Variables
+ +
+ =================================================================
+*/
+
+											echo ("<CENTER><B>Install Forum</B></CENTER><HR>");
+
+$_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Title				= $_POST['Module_Forum_Post_Forum_Title'];
+$_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Title				= str_replace("'", "&#39;", $_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Title);
+$_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Description			= $_POST['Module_Forum_Post_Forum_Description'];
+$_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Description			= str_replace($_GLOBAL_SAFEHTML_CODE, $_GLOBAL_SAFEHTML_CODE_REPLACE, $_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Description);
+$_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Description			= str_replace($_GLOBAL_SAFEHTML_SMILEYS, $_GLOBAL_SAFEHTML_SMILEYS_REPLACE, $_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Description);
+$_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Access_Level			= $_POST['Module_Forum_Post_Forum_Access_Level'];
+
+/*
+ =================================================================
+ +
+ + Install Forum Input Form
+ +
+ =================================================================
+*/
+
+/*
+ =================================================================
+ + IF: Form Has Not Posted, Display Form
+ =================================================================
+*/
+
+if ((!$_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Title) || (!$_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Description)) {
+
+echo ("
+											<FORM ACTION=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Forum\" METHOD=\"POST\">
+												Forum Title: ( Maximum Length: 100 Characters )<BR>
+													<INPUT TYPE=\"TEXT\" MAXLENGTH=\"200\" NAME=\"Module_Forum_Post_Forum_Title\"><BR>
+												Forum Access Level:<BR>
+													<SELECT NAME=\"Module_Forum_Post_Forum_Access_Level\">
+														<OPTION VALUE=\"1\">Member</OPTION>
+														<OPTION VALUE=\"2\">Locked</OPTION>
+														<OPTION VALUE=\"3\">Administrator</OPTION>
+													</SELECT><BR>
+												Forum Description:<BR>
+													<TEXTAREA ROWS=\"15\" COLS=\"75\" NAME=\"Module_Forum_Post_Forum_Description\">Description of this Forum...</TEXTAREA><BR>
+												<INPUT TYPE=\"SUBMIT\" VALUE=\"Install Forum\">
+											</FORM><BR><BR>
+");
+
+} else {
+
+if (strlen($_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Title) > "100") {
+											echo ($_Application_Module_Message_Administration_Forum_FORUM_TITLE_TOO_LONG);
+} else {
+
+if (strlen($_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Description) > "100") {
+											echo ($_Application_Module_Message_Administration_Forum_FORUM_DESCRIPTION_TOO_LONG);
+} else {
+
+$_Application_Module_Administration_Forum_DB_Query_INSTALL_FORUM 				= $DB->query("INSERT INTO {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_forum(forum_access_level,forum_date,forum_description,forum_title)VALUES('$_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Access_Level','$_GLOBAL_DATE','$_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Description','$_Application_Module_Administration_Forum_Module_Forum_Post_Forum_Title')");
+
+if ($_Application_Module_Administration_Forum_DB_Query_INSTALL_FORUM) {
+											echo ($_Application_Module_Message_Administration_Forum_INSTALL_FORUM_SUCCESSFUL);
+} else {
+											echo ($_Application_Module_Message_Administration_Forum_INSTALL_FORUM_ERROR);
+} // [ + ] IF_STRLEN
+
+} // [ + ] IF_STRLEN
+
+} // [ + ] IF_FORUM_SQL
+
+/*
+ =================================================================
+ + Kill SQL Database Server Query: Install Forum
+ =================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Forum_DB_Query_INSTALL_FORUM);
+
+} // [ + ] IF_POST
+
+/*
+ =================================================================
+ +
+ + List Existing Forum Entries
+ +
+ =================================================================
+*/
+
+											echo ("<HR><CENTER><B>Existing Forum(s)</B></CENTER><HR>");
+
+$_Application_Module_Administration_Forum_DB_Query_SELECT_FORUMS 				= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_forum");
+
+if ($DB->num_rows($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUMS) <= 0) {
+											echo ($_Application_Module_Message_Administration_Forum_NO_FORUMS_EXIST);
+} // [ + ] IF_NUM_ROWS
+
+while ($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUMS_Fetch_Array = $DB->fetch_array($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUMS)) {
+
+/*
+ =================================================================
+ + List Forum Entries Variables
+ =================================================================
+*/
+
+$_Application_Module_Administration_Forum_LIST_FORUM_ID 					= $_Application_Module_Administration_Forum_DB_Query_SELECT_FORUMS_Fetch_Array['id'];
+$_Application_Module_Administration_Forum_LIST_FORUM_ACCESS_LEVEL				= $_Application_Module_Administration_Forum_DB_Query_SELECT_FORUMS_Fetch_Array['forum_access_level'];
+$_Application_Module_Administration_Forum_LIST_FORUM_DATE					= $_Application_Module_Administration_Forum_DB_Query_SELECT_FORUMS_Fetch_Array['forum_date'];
+$_Application_Module_Administration_Forum_LIST_FORUM_DESCRIPTION				= $_Application_Module_Administration_Forum_DB_Query_SELECT_FORUMS_Fetch_Array['forum_description'];
+$_Application_Module_Administration_Forum_LIST_FORUM_TITLE					= $_Application_Module_Administration_Forum_DB_Query_SELECT_FORUMS_Fetch_Array['forum_title'];
+
+echo ("
+													<CENTER>
+														<TABLE BORDER=\"1\" WIDTH=\"100%\" CELLPADDING=\"0\" CELLSPACING=\"0\">
+															<TR>
+																<TD WIDTH=\"90%\">Forum Name: <B>$_Application_Module_Administration_Forum_LIST_FORUM_TITLE</B></TD>
+																<TD WIDTH=\"5%\"><A HREF=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Forum&amp;ModifyForumID&#61;$_Application_Module_Administration_Forum_LIST_FORUM_ID\" TITLE=\"Modify Forum: $_Application_Module_Administration_Forum_LIST_FORUM_TITLE\">Modify</A></TD>
+																<TD WIDTH=\"5%\"><A HREF=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Forum&amp;DeleteForumID&#61;$_Application_Module_Administration_Forum_LIST_FORUM_ID\" TITLE=\"Delete Forum: $_Application_Module_Administration_Forum_LIST_FORUM_TITLE\">Delete</A></TD>
+															</TR>
+														</TABLE>
+													</CENTER>
+");
+
+/*
+ =================================================================
+ +
+ + Update Selected Forum ID
+ +
+ =================================================================
+*/
+
+if ($_GET["ModifyForumID"] == "$_Application_Module_Administration_Forum_LIST_FORUM_ID") {
+
+/*
+ =================================================================
+ + Update Forum Form Variables
+ =================================================================
+*/
+
+$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_TITLE				= $_POST['post_modify_forum_title'];
+$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_TITLE				= str_replace("'", "&#39;", $_Application_Module_Administration_Forum_POST_FORUM_MODIFY_TITLE);
+$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_DATE				= $_POST['post_modify_forum_date'];
+$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_ACCESS_LEVEL			= $_POST['post_modify_forum_access_level'];
+$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_DESCRIPTION				= $_POST['post_modify_forum_description'];
+$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_DESCRIPTION				= str_replace($_GLOBAL_SAFEHTML_CODE, $_GLOBAL_SAFEHTML_CODE_REPLACE, $_Application_Module_Administration_Forum_POST_FORUM_MODIFY_DESCRIPTION);
+$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_DESCRIPTION				= str_replace($_GLOBAL_SAFEHTML_SMILEYS, $_GLOBAL_SAFEHTML_SMILEYS_REPLACE, $_Application_Module_Administration_Forum_POST_FORUM_MODIFY_DESCRIPTION);
+
+/*
+ =================================================================
+ +
+ + Update Selected Forum Form
+ +
+ =================================================================
+*/
+
+/*
+ =================================================================
+ + IF: Update Forum Form Has Not Posted, Display Update Forum Form
+ =================================================================
+*/
+
+if (!$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_TITLE) {
+
+echo ("
+													<BR><HR><CENTER><B>Currently Modifying Forum</B>: <I>$_Application_Module_Administration_Forum_LIST_FORUM_TITLE</I></CENTER><HR><BR>
+
+													<FORM ACTION=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Forum&amp;ModifyForumID&#61;$_Application_Module_Administration_Forum_LIST_FORUM_ID\" METHOD=\"POST\">
+														Forum Title:<BR>
+															<INPUT TYPE=\"TEXT\" NAME=\"post_modify_forum_title\" VALUE=\"$_Application_Module_Administration_Forum_LIST_FORUM_TITLE\" MAXLENGTH=\"250\"><BR>
+														Forum Creation Date:<BR>
+															<INPUT TYPE=\"TEXT\" NAME=\"post_modify_forum_date\" VALUE=\"$_Application_Module_Administration_Forum_LIST_FORUM_DATE\" MAXLENGTH=\"250\"><BR>
+														Forum Access Level:<BR>
+															<SELECT NAME=\"post_modify_forum_access_level\">
+																<OPTION VALUE=\"1\">Member</OPTION>
+																<OPTION VALUE=\"2\">Locked</OPTION>
+																<OPTION VALUE=\"3\">Administrator</OPTION>
+															</SELECT><BR>
+														Forum Description:<BR>
+															<TEXTAREA ROWS=\"15\" COLS=\"75\" NAME=\"post_modify_forum_description\">$_Application_Module_Administration_Forum_LIST_FORUM_DESCRIPTION</TEXTAREA><BR>
+														<INPUT TYPE=\"SUBMIT\" VALUE=\"Submit\">
+													</FORM><BR>
+");
+
+} else {
+
+$_Application_Module_Administration_Forum_DB_Query_UPDATE_FORUM					= $DB->query("UPDATE {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_forum SET forum_access_level='$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_ACCESS_LEVEL',forum_date='$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_DATE',forum_description='$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_DESCRIPTION',forum_title='$_Application_Module_Administration_Forum_POST_FORUM_MODIFY_TITLE' WHERE id='$_Application_Module_Administration_Forum_LIST_FORUM_ID'");
+
+if ($_Application_Module_Administration_Forum_DB_Query_UPDATE_FORUM) {
+													echo ($_Application_Module_Message_Administration_Forum_FORUM_UPDATED_SUCCESSFULLY);
+} else {
+													echo ($_Application_Module_Message_Administration_Forum_FORUM_UPDATE_ERROR);
+} // [ + ] IF_UPDATE_SQL
+
+/*
+ =================================================================
+ + Kill SQL Database Server Query: Update Forum
+ =================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Forum_DB_Query_UPDATE_FORUM);
+
+} // [ + ] IF_POST
+
+} // [ + ] IF_MODID
+
+/*
+ =================================================================
+ +
+ + Delete Selected Forum ID
+ +
+ =================================================================
+*/
+
+if ($_GET["DeleteForumID"] == "$_Application_Module_Administration_Forum_LIST_FORUM_ID") {
+
+$_Application_Module_Administration_Forum_DB_Query_DELETE_FORUM					= $DB->query("DELETE FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_forum WHERE ID='$_Application_Module_Administration_Forum_LIST_FORUM_ID'");
+
+if ($_Application_Module_Administration_Forum_DB_Query_DELETE_FORUM) {
+													echo ($_Application_Module_Message_Administration_Forum_FORUM_DELETED_SUCCESSFULLY);
+} else {
+													echo ($_Application_Module_Message_Administration_Forum_FORUM_DELETE_ERROR);
+} // [ + ] IF_DELETE_SQL_QUERY
+
+$DB->free($_Application_Module_Administration_Forum_DB_Query_DELETE_FORUM);
+
+} // [ + ] IF_DELETE_FORUM_ID
+
+} // [ + ] WHILE_ARRAY
+
+/*
+ =================================================================
+ + Kill SQL Database Server Query: Delete Forum ID
+ =================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUMS);
+
+/*
+ ================================================================
+ +
+ +
+ + Create / Delete / Update Topic(s)
+ +
+ +
+ ================================================================
+*/
+
+/*
+ =================================================================
+ +
+ + Create Topic Form Variables
+ +
+ =================================================================
+*/
+
+$_Application_Module_Administration_Forum_CREATE_TOPIC_TITLE					= $_POST['post_topic_title'];
+$_Application_Module_Administration_Forum_CREATE_TOPIC_TITLE					= str_replace("'", "&#39;", $_Application_Module_Administration_Forum_CREATE_TOPIC_TITLE);
+$_Application_Module_Administration_Forum_CREATE_TOPIC_FORUM_ID					= $_POST['post_topic_forum_id'];
+$_Application_Module_Administration_Forum_CREATE_TOPIC_ACCESS_LEVEL				= $_POST['post_topic_access_level'];
+$_Application_Module_Administration_Forum_CREATE_TOPIC_DESCRIPTION				= $_POST['post_topic_description'];
+$_Application_Module_Administration_Forum_CREATE_TOPIC_DESCRIPTION				= str_replace($_GLOBAL_SAFEHTML_CODE, $_GLOBAL_SAFEHTML_CODE_REPLACE, $_Application_Module_Administration_Forum_CREATE_TOPIC_DESCRIPTION);
+$_Application_Module_Administration_Forum_CREATE_TOPIC_DESCRIPTION				= str_replace($_GLOBAL_SAFEHTML_SMILEYS, $_GLOBAL_SAFEHTML_SMILEYS_REPLACE, $_Application_Module_Administration_Forum_CREATE_TOPIC_DESCRIPTION);
+
+/*
+ =================================================================
+ +
+ + Create Topic Form
+ +
+ =================================================================
+*/
+
+if (!$_Application_Module_Administration_Forum_CREATE_TOPIC_TITLE) {
+
+echo ("
+											<BR><HR><CENTER><B>Install Forum Topic</B></CENTER><HR>
+											<FORM ACTION=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Forum\" METHOD=\"POST\">
+												Forum Topic Title: ( Maximum Length: 100 Characters )<BR>
+													<INPUT TYPE=\"TEXT\" MAXLENGTH=\"100\" NAME=\"post_topic_title\"><BR>
+												Forum:<BR>
+													<SELECT NAME=\"post_topic_forum_id\">
+");
+
+$_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_TOPICS			= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_forum");
+
+while ($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_TOPICS_Fetch_Array = $DB->fetch_array($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_TOPICS)) {
+
+$_Application_Module_Administration_Forum_LIST_TOPIC_FORUM_ID					= $_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_TOPICS_Fetch_Array['id'];
+$_Application_Module_Administration_Forum_LIST_TOPIC_FORUM_TITLE				= $_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_TOPICS_Fetch_Array['forum_title'];
+
+											echo ("<OPTION VALUE=\"$_Application_Module_Administration_Forum_LIST_TOPIC_FORUM_ID\">$_Application_Module_Administration_Forum_LIST_TOPIC_FORUM_TITLE</OPTION>");
+
+} // [ + ] WHILE_TOPIC_FORUM_ID_SQL
+
+/*
+ =================================================================
+ + Kill SQL Database Server Query: Select All Forum Topics
+ =================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_TOPICS);
+
+echo ("
+													</SELECT>
+													<BR>
+												Forum Topic Access Level:<BR>
+													<SELECT NAME=\"post_topic_access_level\">
+														<OPTION VALUE=\"1\">Member</OPTION>
+														<OPTION VALUE=\"2\">Locked</OPTION>
+														<OPTION VALUE=\"3\">Administration</OPTION>
+													</SELECT><BR>
+												Forum Topic Description: (Maximum Length: 100 Characters)<BR>
+													<TEXTAREA ROWS=\"15\" COLS=\"75\" NAME=\"post_topic_description\">Description of this Topic...</TEXTAREA><BR>
+												<INPUT TYPE=\"SUBMIT\" VALUE=\"Install Topic\">
+											</FORM><BR>
+");
+} else {
+
+$_Application_Module_Administration_Forum_DB_Query_CREATE_TOPIC					= $DB->query("INSERT INTO {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_topic(topic_access_level,topic_date,topic_description,topic_forum_id,topic_last_post,topic_last_poster,topic_title)VALUES('$_Application_Module_Administration_Forum_CREATE_TOPIC_ACCESS_LEVEL','$_GLOBAL_DATE','$_Application_Module_Administration_Forum_CREATE_TOPIC_DESCRIPTION','$_Application_Module_Administration_Forum_CREATE_TOPIC_FORUM_ID','$_GLOBAL_DATE','$_GLOBAL_USERNAME','$_Application_Module_Administration_Forum_CREATE_TOPIC_TITLE')");
+
+if ($_Application_Module_Administration_Forum_DB_Query_CREATE_TOPIC) {
+											echo ($_Application_Module_Message_Administration_Forum_INSTALL_TOPIC_SUCCESSFUL);
+} else {
+											echo ($_Application_Module_Message_Administration_Forum_INSTALL_TOPIC_ERROR);
+} // [ + ] IF_INSERT_SQL
+
+/*
+ =================================================================
+ + Kill SQL Database Server Query: Create Forum Topic
+ =================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Forum_DB_Query_CREATE_TOPIC);
+
+} // [ + ] IF_!POST
+
+/*
+ =================================================================
+ +
+ + Forum Topic Delete / Manage Form
+ +
+ =================================================================
+*/
+
+$_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS				= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_topic");
+
+													echo ("<HR><CENTER><B>Existing Topic(s)</B></CENTER><HR>");
+
+if ($DB->num_rows($_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS) <=0) {
+
+													echo ($_Application_Module_Message_Administration_Forum_NO_TOPICS_EXIST);
+
+} else {
+
+while ($_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS_Fetch_Array = $DB->fetch_array($_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS)) {
+
+/*
+ =================================================================
+ + List Forum Topic Entries
+ =================================================================
+*/
+
+$_Application_Module_Administration_Forum_LIST_TOPIC_ID						= $_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS_Fetch_Array['id'];
+$_Application_Module_Administration_Forum_LIST_TOPIC_ACCESS_LEVEL				= $_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS_Fetch_Array['topic_access_level'];
+$_Application_Module_Administration_Forum_LIST_TOPIC_DATE					= $_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS_Fetch_Array['topic_date'];
+$_Application_Module_Administration_Forum_LIST_TOPIC_DESCRIPTION				= $_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS_Fetch_Array['topic_description'];
+$_Application_Module_Administration_Forum_LIST_TOPIC_FORUM_ID					= $_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS_Fetch_Array['topic_forum_id'];
+$_Application_Module_Administration_Forum_LIST_TOPIC_LAST_POST					= $_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS_Fetch_Array['topic_last_post'];
+$_Application_Module_Administration_Forum_LIST_TOPIC_LAST_POSTER				= $_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS_Fetch_Array['topic_last_poster'];
+$_Application_Module_Administration_Forum_LIST_TOPIC_TITLE					= $_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS_Fetch_Array['topic_title'];
+
+echo ("
+													<CENTER>
+														<TABLE BORDER=\"1\" WIDTH=\"100%\" CELLPADDING=\"0\" CELLSPACING=\"0\">
+															<TR>
+																<TD WIDTH=\"90%\">Forum Topic Name: <B>$_Application_Module_Administration_Forum_LIST_TOPIC_TITLE</B></TD>
+																<TD WIDTH=\"5%\"><A HREF=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Forum&amp;ModifyTopicID&#61;$_Application_Module_Administration_Forum_LIST_TOPIC_ID\" TITLE=\"Modify Topic: $_Application_Module_Administration_Forum_LIST_TOPIC_TITLE\">Modify</A></TD>
+																<TD WIDTH=\"5%\"><A HREF=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Forum&amp;DeleteTopicID&#61;$_Application_Module_Administration_Forum_LIST_TOPIC_ID\" TITLE=\"Delete Topic: $_Application_Module_Administration_Forum_LIST_TOPIC_TITLE\">Delete</A></TD>
+															</TR>
+														</TABLE>
+													</CENTER>
+");
+
+/*
+ =================================================================
+ +
+ + Update Selected Forum Topic ID
+ +
+ =================================================================
+*/
+
+if ($_GET["ModifyTopicID"] == "$_Application_Module_Administration_Forum_LIST_TOPIC_ID") {
+
+/*
+ =================================================================
+ + Update Forum Topic Form Variables
+ =================================================================
+*/
+
+$_Application_Module_Administration_Forum_POST_TOPIC_TITLE					= $_POST['post_modify_topic_title'];
+$_Application_Module_Administration_Forum_POST_TOPIC_TITLE					= str_replace("'", "&#39;", $_Application_Module_Administration_Forum_POST_TOPIC_TITLE);
+$_Application_Module_Administration_Forum_POST_TOPIC_DATE					= $_POST['post_modify_topic_date'];
+$_Application_Module_Administration_Forum_POST_TOPIC_ACCESS_LEVEL				= $_POST['post_modify_topic_access_level'];
+$_Application_Module_Administration_Forum_POST_TOPIC_FORUM_ID					= $_POST['post_modify_topic_forum_id'];
+$_Application_Module_Administration_Forum_POST_TOPIC_LAST_POST					= $_POST['post_modify_topic_last_post'];
+$_Application_Module_Administration_Forum_POST_TOPIC_LAST_POSTER				= $_POST['post_modify_topic_last_poster'];
+$_Application_Module_Administration_Forum_POST_TOPIC_DESCRIPTION				= $_POST['post_modify_topic_description'];
+$_Application_Module_Administration_Forum_POST_TOPIC_DESCRIPTION				= str_replace($_GLOBAL_SAFEHTML_CODE, $_GLOBAL_SAFEHTML_CODE_REPLACE, $_Application_Module_Administration_Forum_POST_TOPIC_DESCRIPTION);
+$_Application_Module_Administration_Forum_POST_TOPIC_DESCRIPTION				= str_replace($_GLOBAL_SAFEHTML_SMILEYS, $_GLOBAL_SAFEHTML_SMILEYS_REPLACE, $_Application_Module_Administration_Forum_POST_TOPIC_DESCRIPTION);
+
+/*
+ =================================================================
+ + Update Forum Topic Form
+ =================================================================
+*/
+
+if (!$_Application_Module_Administration_Forum_POST_TOPIC_TITLE) {
+
+echo ("
+													<BR><HR><CENTER><B>Currently Modifying Topic</B>: <I>$_Application_Module_Administration_Forum_LIST_TOPIC_TITLE</I></CENTER><HR>
+													<FORM ACTION=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Forum&amp;ModifyTopicID&#61;$_Application_Module_Administration_Forum_LIST_TOPIC_ID\" METHOD=\"POST\">
+														Forum Topic Title:<BR>
+															<INPUT TYPE=\"TEXT\" NAME=\"post_modify_topic_title\" VALUE=\"$_Application_Module_Administration_Forum_LIST_TOPIC_TITLE\"><BR>
+														Forum Topic Creation Date:<BR>
+															<INPUT TYPE=\"TEXT\" NAME=\"post_modify_topic_date\" VALUE=\"$_Application_Module_Administration_Forum_LIST_TOPIC_DATE\"><BR>
+														Forum Topic Access Level:<BR>
+															<SELECT NAME=\"post_modify_topic_access_level\">
+																<OPTION VALUE=\"1\">Member</OPTION>
+																<OPTION VALUE=\"2\">Locked</OPTION>
+																<OPTION VALUE=\"3\">Administration</OPTION>
+															</SELECT><BR>
+														Forum: ( Current: $_Application_Module_Administration_Forum_LIST_TOPIC_FORUM_ID )<BR>
+															<SELECT NAME=\"post_modify_topic_forum_id\">
+");
+
+$_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_UPDATE_TOPIC = $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_forum ORDER BY id ASC");
+
+while ($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_UPDATE_TOPIC_Fetch_Array = $DB->fetch_array($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_UPDATE_TOPIC)) {
+
+$_Application_Module_Administration_Forum_LIST_FORUM_UPDATE_ID					= $_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_UPDATE_TOPIC_Fetch_Array['id'];
+$_Application_Module_Administration_Forum_LIST_FORUM_UPDATE_TITLE				= $_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_UPDATE_TOPIC_Fetch_Array['forum_title'];
+
+														echo ("<OPTION VALUE=\"$_Application_Module_Administration_Forum_LIST_FORUM_UPDATE_ID\">$_Application_Module_Administration_Forum_LIST_FORUM_UPDATE_ID: $_Application_Module_Administration_Forum_LIST_FORUM_UPDATE_TITLE</OPTION>");
+
+} // [ + ] WHILE_SQL
+
+/*
+ =================================================================
+ + Kill SQL Database Server Query: Update Forum Topic
+ =================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_FOR_UPDATE_TOPIC);
+
+echo ("
+															</SELECT><BR>
+														Forum Topic Last Post:<BR>
+															<INPUT TYPE=\"TEXT\" NAME=\"post_modify_topic_last_post\" VALUE=\"$_Application_Module_Administration_Forum_LIST_TOPIC_LAST_POST\"><BR>
+														Forum Topic Last Poster:<BR>
+															<INPUT TYPE=\"TEXT\" NAME=\"post_modify_topic_last_poster\" VALUE=\"$_Application_Module_Administration_Forum_LIST_TOPIC_LAST_POSTER\"><BR>
+														Forum Topic Description:<BR>
+															<TEXTAREA ROWS=\"15\" COLS=\"75\" NAME=\"post_modify_topic_description\">$_Application_Module_Administration_Forum_LIST_TOPIC_DESCRIPTION</TEXTAREA><BR>
+														<INPUT TYPE=\"SUBMIT\" VALUE=\"Submit\">
+													</FORM><BR>
+");
+
+} else {
+
+$_Application_Module_Administration_Forum_DB_Query_UPDATE_TOPIC					= $DB->query("UPDATE {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_topic SET topic_access_level='$_Application_Module_Administration_Forum_POST_TOPIC_ACCESS_LEVEL',topic_date='$_Application_Module_Administration_Forum_POST_TOPIC_DATE',topic_description='$_Application_Module_Administration_Forum_POST_TOPIC_DESCRIPTION',topic_forum_id='$_Application_Module_Administration_Forum_POST_TOPIC_FORUM_ID',topic_last_post='$_Application_Module_Administration_Forum_POST_TOPIC_LAST_POST',topic_last_poster='$_Application_Module_Administration_Forum_POST_TOPIC_LAST_POSTER',topic_title='$_Application_Module_Administration_Forum_POST_TOPIC_TITLE' WHERE ID='$_Application_Module_Administration_Forum_LIST_TOPIC_ID'");
+
+if ($_Application_Module_Administration_Forum_DB_Query_UPDATE_TOPIC) {
+													echo ($_Application_Module_Message_Administration_Forum_TOPIC_UPDATED_SUCCESSFULLY);
+} else {
+													echo ($_Application_Module_Message_Administration_Forum_TOPIC_UPDATE_ERROR);
+} // [ + ] IF_UPDATE_SQL
+
+/*
+ =================================================================
+ + Kill SQL Database Server Query: Update Forum Topic
+ =================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Forum_DB_Query_UPDATE_TOPIC);
+
+} // [ + ] IF_!POST
+
+} // [ + ] IF_MODIFY
+
+/*
+ =================================================================
+ +
+ + Delete Selected Forum Topic ID
+ +
+ =================================================================
+*/
+
+if ($_GET["DeleteTopicID"] == "$_Application_Module_Administration_Forum_LIST_TOPIC_ID") {
+
+$_Application_Module_Administration_Forum_DB_Query_DELETE_TOPIC					= $DB->query("DELETE FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_topic WHERE ID='$_Application_Module_Administration_Forum_LIST_TOPIC_ID'");
+
+if ($_Application_Module_Administration_Forum_DB_Query_DELETE_TOPIC) {
+													echo ($_Application_Module_Message_Administration_Forum_TOPIC_DELETED_SUCCESSFULLY);
+} else {
+													echo ($_Application_Module_Message_Administration_Forum_TOPIC_DELETE_ERROR);
+} // [ + ] IF_DELETE_SQL
+
+/*
+ =================================================================
+ + Kill SQL Database Server Query: Delete Forum Topic
+ =================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Forum_DB_Query_DELETE_TOPIC);
+
+} // [ + ] IF_DELETE
+
+} // [ + ] NUM_ROWS
+
+} // [ + ] WHILE_ARRAY_TOPIC
+
+/*
+ =================================================================
+ + Kill SQL Database Server Query: Select All Forum Topics
+ =================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Forum_DB_Query_SELECT_TOPICS);
+
+/*
+ ===============================================================================
+ +
+ +
+ + Create / Update / Delete Forum Topic Post(s)
+ +
+ +
+ ===============================================================================
+*/
+
+/*
+ =================================================================
+ + Create Post Form Variables
+ =================================================================
+*/
+
+$_Application_Module_Administration_Forum_POST_CREATE_POST_TOPIC_ID				= $_POST['post_topic_id_option'];
+$_Application_Module_Administration_Forum_POST_CREATE_POST_MESSAGE				= $_POST['post_create_post'];
+$_Application_Module_Administration_Forum_POST_CREATE_POST_MESSAGE				= str_replace($_GLOBAL_SAFEHTML_CODE, $_GLOBAL_SAFEHTML_CODE_REPLACE, $_Application_Module_Administration_Forum_POST_CREATE_POST_MESSAGE);
+$_Application_Module_Administration_Forum_POST_CREATE_POST_MESSAGE				= str_replace($_GLOBAL_SAFEHTML_SMILEYS, $_GLOBAL_SAFEHTML_SMILEYS_REPLACE, $_Application_Module_Administration_Forum_POST_CREATE_POST_MESSAGE);
+$_Application_Module_Administration_Forum_POST_CREATE_POST_ACCESS_LEVEL				= $_POST['post_topic_access_level'];
+
+if ((!$_Application_Module_Administration_Forum_POST_CREATE_POST_TOPIC_ID) || (!$_Application_Module_Administration_Forum_POST_CREATE_POST_MESSAGE)) {
+
+echo ("
+											<BR><HR><CENTER><B>Post Message</B></CENTER><HR>
+											<FORM ACTION=\"?$_INTERNAL_APPLICATION_MODULE_ADMINISTRATOR&#61;Control_Panel&amp;Action&#61;Forum\" METHOD=\"POST\">
+												Topic:<BR>
+													<SELECT NAME=\"post_topic_id_option\">
+");
+
+$_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_TOPIC_FOR_POST			= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_topic ORDER BY id ASC");
+
+while ($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_TOPIC_FOR_POST_Fetch_Array = $DB->fetch_array($_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_TOPIC_FOR_POST)) {
+
+/*
+ =================================================================
+ + List Forum Topic Entries
+ =================================================================
+*/
+
+$_Application_Module_Administration_Forum_LIST_TOPIC_ID_FOR_POST				= $_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_TOPIC_FOR_POST_Fetch_Array['id'];
+$_Application_Module_Administration_Forum_LIST_TOPIC_TITLE_FOR_POST				= $_Application_Module_Administration_Forum_DB_Query_SELECT_FORUM_TOPIC_FOR_POST_Fetch_Array['topic_title'];
+
+echo ("
+													<OPTION VALUE=\"$_Application_Module_Administration_Forum_LIST_TOPIC_ID_FOR_POST\">$_Application_Module_Administration_Forum_LIST_TOPIC_TITLE_FOR_POST</OPTION>
+");
+
+} // [ + ] WHILE_ARRAY
+
+echo ("
+													</SELECT>
+													<BR>
+												Message Access Level:<BR>
+													<SELECT NAME=\"post_topic_access_level\">
+														<OPTION VALUE=\"1\">Member</OPTION>
+														<OPTION VALUE=\"2\">Locked</OPTION>
+														<OPTION VALUE=\"3\">Administrator</OPTION>
+													</SELECT><BR>
+												Message:<BR>
+													<TEXTAREA ROWS=\"15\" COLS=\"75\" NAME=\"post_create_post\">Message...</TEXTAREA><BR>
+												<INPUT TYPE=\"SUBMIT\" VALUE=\"Post Message\">
+											</FORM>
+");
+
+} else {
+
+$_Application_Module_Administration_Forum_DB_Query_CREATE_POST					= $DB->query("INSERT INTO {$_ACCESS_DATABASE_SERVER_DATABASE_TABLE_PREFIX}_forum_post(post_access_level,post_author,post_data,post_date,post_last_edit,post_topic_id)VALUES('$_Application_Module_Administration_Forum_POST_CREATE_POST_ACCESS_LEVEL','$_GLOBAL_USERNAME','$_Application_Module_Administration_Forum_POST_CREATE_POST_MESSAGE','$_GLOBAL_DATE','N/A','$_Application_Module_Administration_Forum_POST_CREATE_POST_TOPIC_ID')");
+
+if ($_Application_Module_Administration_Forum_DB_Query_CREATE_POST) {
+											echo ($_Application_Module_Message_Administration_Forum_MESSAGE_POSTED_SUCCESSFULLY);
+} else {
+											echo ($_Application_Module_Message_Administration_Forum_MESSAGE_POST_ERROR);
+} // [ + ] IF_CREATE_POST_SQL
+
+/*
+ =================================================================
+ + Kill SQL Database Server Query: Create Forum Topic Post
+ =================================================================
+*/
+
+$DB->free($_Application_Module_Administration_Forum_DB_Query_CREATE_POST);
+
+} // [ + ] IF_POST
+?>
