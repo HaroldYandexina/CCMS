@@ -389,7 +389,7 @@ $_Application_Module_Member_Update_Profile_POST_UPDATE_MEMBER_ACCOUNT_SETTINGS_T
 
 /*
  ================================================================
- + Account Settings :: Profile About and Signature
+ + Account Settings :: Profile Images
  ================================================================
 */
 
@@ -398,12 +398,14 @@ $_Application_Module_Member_Update_Profile_POST_UPDATE_MEMBER_ACCOUNT_PROFILE_PI
 
 /*
  ================================================================
- + Account Settings :: Profile Images
+ + Account Settings :: Profile About and Profile Signature
  ================================================================
 */
 
 $_Application_Module_Member_Update_Profile_POST_UPDATE_MEMBER_ACCOUNT_PROFILE_ABOUT							= $_POST['member_account_profile_about'];
 $_Application_Module_Member_Update_Profile_POST_UPDATE_MEMBER_ACCOUNT_PROFILE_SIGNATURE						= $_POST['member_account_profile_signature'];
+
+$_Application_Module_Member_Update_Profile_POST_UPDATE_MEMBER_ACCOUNT_URL_HOMEPAGE						= $_POST['member_account_url_homepage'];
 
 /*
  ================================================================
@@ -503,7 +505,7 @@ echo ("
 													* Personal Electronic Mail Address:<BR>
 														<INPUT TYPE=\"text\" NAME=\"member_account_electronic_mail_address\" VALUE=\"$_Application_Module_Member_Update_Profile_LIST_MEMBER_ELECTRONIC_MAIL_ADDRESS\" MAXLENGTH=\"250\"><BR><BR>
 													* Personal Homepage:<BR>
-														<INPUT TYPE=\"text\" NAME=\"member_account_homepage\" VALUE=\"$_Application_Module_Member_Update_Profile_LIST_MEMBER_URL_HOMEPAGE\" MAXLENGTH=\"250\"><BR><BR>
+														<INPUT TYPE=\"text\" NAME=\"member_account_url_homepage\" VALUE=\"$_Application_Module_Member_Update_Profile_LIST_MEMBER_URL_HOMEPAGE\" MAXLENGTH=\"250\"><BR><BR>
 
 													<B><I>Communications</I></B><BR>
 													* My ICQ:<BR>
@@ -821,7 +823,7 @@ member_socialmedia_programming_github='$_Application_Module_Member_Update_Profil
 member_socialmedia_programming_launchpad='$_Application_Module_Member_Update_Profile_POST_UPDATE_MEMBER_ACCOUNT_SOCIALMEDIA_PROGRAMMING_LAUNCHPAD',
 member_socialmedia_security_keybase='$_Application_Module_Member_Update_Profile_POST_UPDATE_MEMBER_ACCOUNT_SOCIALMEDIA_SECURITY_KEYBASE',
 member_socialmedia_video_youtube='$_Application_Module_Member_Update_Profile_POST_UPDATE_MEMBER_ACCOUNT_SOCIALMEDIA_VIDEO_YOUTUBE',
-member_socialmedia_url_homepage='$_Application_Module_Member_Update_Profile_POST_UPDATE_MEMBER_ACCOUNT_SOCIALMEDIA_URL_HOMEPAGE' WHERE member_username='$_GLOBAL_COOKIE_MEMBER_USERNAME'");
+member_url_homepage='$_Application_Module_Member_Update_Profile_POST_UPDATE_MEMBER_ACCOUNT_URL_HOMEPAGE' WHERE member_username='$_GLOBAL_COOKIE_MEMBER_USERNAME'");
 
 if ($_Application_Module_Member_Update_Profile_DB_Query_UPDATE_MEMBER_ACCOUNT) {
 
